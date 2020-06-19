@@ -7,7 +7,4 @@
 </template>
 
 <style>
-.title {
-  font-family: "Sulphur Point", sans-serif;
-}
 </style>
