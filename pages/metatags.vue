@@ -29,9 +29,9 @@
             <v-card-subtitle class="mt-5 mb-n2">Website</v-card-subtitle>
             <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
             <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
-            <v-textarea filled v-model="title" counter dense rows="3" color="indigo darken-3"></v-textarea>
+            <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
             <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
-            <v-textarea filled v-model="description" counter dense rows="6" color="indigo darken-3"></v-textarea>
+            <v-textarea filled v-model="description" counter dense rows="5" color="indigo darken-3"></v-textarea>
             <v-divider class="mt-3"></v-divider>
             <v-card flat>
               <div class="d-flex align-center justify-start">
@@ -41,32 +41,63 @@
                 <v-card-title class="ml-n3">OpenGraph / Facebook</v-card-title>
               </div>
 
-              <v-card-subtitle class="mb-n2">Facebook Title</v-card-subtitle>
+              <v-card-subtitle class="mb-n2">OpenGraph/Facebook Title</v-card-subtitle>
               <v-textarea
                 filled
                 v-model="facebookTitle"
                 counter
                 dense
-                rows="3"
+                rows="2"
                 color="indigo darken-3"
               ></v-textarea>
-              <v-card-subtitle class="mb-n2">Facebook Description</v-card-subtitle>
+              <v-card-subtitle class="mb-n2">OpenGraph/Facebook Description</v-card-subtitle>
               <v-textarea
                 filled
                 v-model="facebookDescription"
                 counter
                 dense
-                rows="6"
+                rows="5"
+                color="indigo darken-3"
+              ></v-textarea>
+            </v-card>
+            <v-divider class="mt-3"></v-divider>
+            <v-card flat>
+              <div class="d-flex align-center justify-start">
+                <v-avatar width="30" height="30">
+                  <img src="/iconfinder_Twitter.png" alt="twitter logo" />
+                </v-avatar>
+                <v-card-title class="ml-n3">Twitter</v-card-title>
+              </div>
+
+              <v-card-subtitle class="mb-n2">Twitter Title</v-card-subtitle>
+              <v-textarea
+                filled
+                v-model="twitterTitle"
+                counter
+                dense
+                rows="2"
+                color="indigo darken-3"
+              ></v-textarea>
+              <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
+              <v-textarea
+                filled
+                v-model="twitterDescription"
+                counter
+                dense
+                rows="5"
                 color="indigo darken-3"
               ></v-textarea>
             </v-card>
           </v-card>
         </v-col>
         <v-divider class="ma-4" inset vertical></v-divider>
-        <v-col cols="12" sm="7">
+        <v-col cols="12" sm="6">
           <v-card flat>
             <v-card-title>Preview</v-card-title>
             <div class="d-flex align-center">
+              <v-avatar class="mb-n3 mr-n4" width="20" height="20">
+                <img src="/google.png" alt="google logo" />
+              </v-avatar>
               <v-card-subtitle class="mt-2 mb-n2">Google</v-card-subtitle>
               <v-divider class="mt-4"></v-divider>
             </div>
@@ -76,6 +107,9 @@
               <p class="font-description mt-n4">{{ trimmedDescription}}</p>
             </v-card>
             <div class="d-flex align-center">
+              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                <img src="/iconfinder_Twitter.png" alt="twitter  logo" />
+              </v-avatar>
               <v-card-subtitle class="mt-2 mb-n2">Twitter</v-card-subtitle>
               <v-divider class="mt-4"></v-divider>
             </div>
@@ -83,11 +117,14 @@
               <v-responsive aspect-ratio="2:1">
                 <v-img :src="previewImage" max-width="600" max-height="300"></v-img>
               </v-responsive>
-              <h3 class="twitter-title ml-2 mt-1 mr-1">{{ trimmedTitle}}</h3>
-              <p class="twitter-description ml-2 mr-1">{{ trimmedDescription}}</p>
+              <h3 class="twitter-title ml-2 mt-1 mr-1">{{ trimmedTwitterTitle}}</h3>
+              <p class="twitter-description ml-2 mr-1">{{ trimmedTwitterDescription}}</p>
               <p class="ml-2 mt-n3 twitter-host mb-2">{{trimmedHost}}</p>
             </v-card>
-            <div class="d-flex align-center">
+            <div class="d-flex align-center mt-3">
+              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                <img src="/facebook.png" alt="facebook logo" />
+              </v-avatar>
               <v-card-subtitle class="mt-2 mb-n2">Facebook</v-card-subtitle>
               <v-divider class="mt-4"></v-divider>
             </div>
@@ -96,7 +133,22 @@
                 <v-img :src="previewImage" max-width="600" max-height="300"></v-img>
               </v-responsive>
               <p class="ml-2 mt-2 facebook-host">{{trimmedHost}}</p>
-              <h3 class="facebook-title ml-2 mt-n4 mb-3">{{ trimmedFbTitle}}</h3>
+              <h3 class="facebook-title ml-2 mt-n4 mb-3 mr-1">{{ trimmedFbTitle}}</h3>
+            </v-card>
+            <div class="d-flex align-center mt-3">
+              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                <img src="/linkedin.png" alt="linkedin logo" />
+              </v-avatar>
+              <v-card-subtitle class="mt-2 mb-n2">Linkedin</v-card-subtitle>
+              <v-divider class="mt-4"></v-divider>
+            </div>
+            <v-card max-width="500" flat outlined color="grey lighten-3">
+              <v-responsive aspect-ratio="2:1">
+                <v-img :src="previewImage" max-width="600" max-height="300"></v-img>
+              </v-responsive>
+
+              <h3 class="facebook-title ml-2 mt-2 mr-1">{{ trimmedFbTitle}}</h3>
+              <p class="ml-2 mt-2 mb-2 linkedin-host">{{trimmedHost}}</p>
             </v-card>
           </v-card>
         </v-col>
@@ -123,9 +175,11 @@ export default {
         "/economia/2020/06/17/news/stati_generali_bonomi_gravi_ritardi_su_cassa_integrazione_e_sostegni_liquidita_-259466951/ ",
       charset: null,
       keywords: "",
-      facebookImage: "",
-      facebookTitle: "",
-      facebookDescription: ""
+
+      facebookTitle: "this is a facebook title",
+      facebookDescription: "this is a facebook description",
+      twitterTitle: "this is a twitter title",
+      twitterDescription: " this is a twitter description"
     };
   },
   computed: {
@@ -155,9 +209,15 @@ export default {
     },
     trimmedTwitterTitle() {
       let length = 60;
-      return this.title.length > length
-        ? this.title.substring(0, length - 3) + "..."
-        : this.title;
+      return this.twitterTitle.length > length
+        ? this.twitterTitle.substring(0, length - 3) + "..."
+        : this.twitterTitle;
+    },
+    trimmedTwitterDescription() {
+      let length = 165;
+      return this.twitterDescription.length > length
+        ? this.twitterDescription.substring(0, length - 3) + "..."
+        : this.twitterDescription;
     }
   },
   methods: {
@@ -213,6 +273,10 @@ export default {
 }
 .facebook-title {
   font-size: 17px;
+  font-family: Helvetica, sans-serif;
+}
+.linkedin-host {
+  font-size: 14px;
   font-family: Helvetica, sans-serif;
 }
 </style>
