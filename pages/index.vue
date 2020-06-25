@@ -8,7 +8,7 @@
     />
     <v-divider></v-divider>
     <v-container v-if="displayedMeta">
-      <v-row>
+      <v-row justify="center">
         <v-divider class="ma-4" inset vertical></v-divider>
         <v-col cols="12" sm="4">
           <v-card flat>
@@ -31,8 +31,10 @@
                 <v-icon small right color="indigo darken-3">mdi-upload</v-icon>
               </v-btn>
             </div>
-            <v-card-subtitle class="mt-5 mb-n2">Website</v-card-subtitle>
+            <v-card-subtitle class="mt-5 mb-n2">Website / Host</v-card-subtitle>
             <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
+            <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
+            <v-textarea filled v-model="urlFullPath" counter dense rows="1" color="indigo darken-3"></v-textarea>
             <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
             <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
             <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
@@ -190,30 +192,41 @@
     </v-container>
 
     <v-container v-else class="d-flex justify-center align-center">
-      <v-divider class="mr-8" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
-      <div class="mt-4">
-        <Header class="mt-4">
-          <slot slot="subtitle">
-            <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
-          </slot>
-          <slot slot="input">
-            <div class="d-flex align-center justify-center">
-              <v-text-field
-                background-color="grey lighten-4"
-                class="mt-3"
-                color="indigo darken-3"
-                v-model="url"
-                outlined
-                placeholder="www.gettymeta.com"
-              ></v-text-field>
-              <v-btn icon class="mt-n5" @click="getMetatags">
-                <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
-              </v-btn>
-            </div>
-          </slot>
-        </Header>
-      </div>
-      <v-divider class="ml-8" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+      <client-only>
+        <v-divider class="mr-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+        <div class="mt-4">
+          <Header class="mt-4">
+            <slot slot="subtitle">
+              <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
+            </slot>
+            <slot slot="input">
+              <v-card flat class="d-flex align-center justify-center">
+                <v-text-field
+                  background-color="grey lighten-4"
+                  class="mt-3"
+                  color="indigo darken-3"
+                  v-model="url"
+                  outlined
+                  full-width
+                  placeholder="www.gettymeta.com"
+                ></v-text-field>
+                <v-btn icon class="mt-n5" @click="getMetatags">
+                  <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
+                </v-btn>
+              </v-card>
+              <div v-if="error" class="d-flex align-center justify-center">
+                <v-alert dense outlined transition="scale-transition" type="error">{{errorText}}</v-alert>
+                <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
+              </div>
+              <div v-if="errorUrl" class="d-flex align-center justify-center">
+                <v-alert dense outlined transition="scale-transition" type="error">{{noUrlText}}</v-alert>
+                <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
+              </div>
+            </slot>
+          </Header>
+        </div>
+        <v-divider class="ml-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+      </client-only>
     </v-container>
     <v-footer absolute>
       <v-col class="text-center" cols="12">
@@ -244,6 +257,10 @@ export default {
     return {
       overlay: false,
       codeShowed: false,
+      errorUrl: false,
+      error: false,
+      errorText: "An error occurred! Please refresh the page and try again",
+      noUrlText: "An error occurred! Please insert a valid url",
       instructionCode:
         "Copy the code and paste it into the <head> of your website",
       htmlCommentTag: "<!-- HTML Meta Tags -->",
@@ -312,6 +329,9 @@ export default {
         ? this.twitterDescription.substring(0, length - 3) + "..."
         : this.twitterDescription;
     },
+    urlFullPath() {
+      return this.host + this.pathname;
+    },
     codeTitle() {
       return `<meta name="title" content="${this.title}">`;
     },
@@ -319,7 +339,7 @@ export default {
       return `<meta name="description" content="${this.description}">`;
     },
     codeOgUrl() {
-      return `<meta property="og:url" content="${this.host}">`;
+      return `<meta property="og:url" content="${this.urlFullPath}">`;
     },
     codeOgTitle() {
       return `<meta property="og:title" content="${this.facebookTitle}">`;
@@ -334,7 +354,7 @@ export default {
       return `<meta property="twitter:card" content="summary_large_image">`;
     },
     codeTwitterUrl() {
-      return `<meta property="twitter:url" content="${this.host}">`;
+      return `<meta property="twitter:url" content="${this.urlFullPath}">`;
     },
     codeTwitterTitle() {
       return `<meta property="twitter:title" content="${this.twitterTitle}">`;
@@ -348,71 +368,77 @@ export default {
   },
   methods: {
     getMetatags() {
-      try {
-        const request = async () => {
-          let response = await fetch("http://localhost:4000/api", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              url: this.url
-            })
+      if (!this.url) {
+        this.errorUrl = true;
+      } else {
+        try {
+          const request = async () => {
+            let response = await fetch("http://localhost:4000/api", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                url: this.url
+              })
+            });
+            return response.json();
+          };
+          request().then(response => {
+            if (response.code) {
+              this.errorUrl = true;
+            } else if (response.statusCode) {
+              this.error = true;
+            } else {
+              if (!response.title) {
+                this.title = " ";
+              } else {
+                this.title = response.title;
+              }
+              if (!response.description) {
+                this.description = " ";
+              } else {
+                this.description = response.description;
+              }
+
+              this.host = response.host;
+              if (!response.ogImage) {
+                this.fbImg = "";
+              } else {
+                this.fbImg = response.ogImage;
+              }
+              if (!response.ogTitle) {
+                this.facebookTitle = " ";
+              } else {
+                this.facebookTitle = response.ogTitle;
+              }
+              if (!response.ogDescription) {
+                this.facebookDescription = " ";
+              } else {
+                this.facebookDescription = response.ogDescription;
+              }
+
+              if (!response.twitterTitle) {
+                this.twitterTitle = " ";
+              } else {
+                this.twitterTitle = response.twitterTitle;
+              }
+              if (!response.twitterDescription) {
+                this.twitterDescription = " ";
+              } else {
+                this.twitterDescription = response.twitterDescription;
+              }
+              if (!response.twitterImage) {
+                this.twitterImg = " ";
+              } else {
+                this.twitterImg = response.twitterImage;
+              }
+              this.previewImage = " ";
+              this.displayedMeta = true;
+              this.url = " ";
+            }
           });
-          return response.json();
-        };
-        request().then(response => {
-          if (response.code) {
-            console.log("please insert a valid url");
-          } else {
-            if (!response.title) {
-              this.title = "This webpage has no title";
-            } else {
-              this.title = response.title;
-            }
-            if (!response.description) {
-              this.description = " ";
-            } else {
-              this.description = response.description;
-            }
-
-            this.host = response.host;
-            if (!response.ogImage) {
-              this.fbImg = "";
-            } else {
-              this.fbImg = response.ogImage;
-            }
-            if (!response.ogTitle) {
-              this.facebookTitle = "This webpage has no Open Graph title";
-            } else {
-              this.facebookTitle = response.ogTitle;
-            }
-            if (!response.ogDescription) {
-              this.facebookDescription =
-                " This webpage has no Open Graph description";
-            } else {
-              this.facebookDescription = response.ogDescription;
-            }
-
-            if (!response.twitterTitle) {
-              this.twitterTitle = "this url has no twitter title";
-            } else {
-              this.twitterTitle = response.twitterTitle;
-            }
-            if (!response.twitterDescription) {
-              this.twitterDescription = "this url has no twitter description";
-            } else {
-              this.twitterDescription = response.twitterDescription;
-            }
-            if (!response.twitterImage) {
-              this.twitterImg = " ";
-            } else {
-              this.twitterImg = response.twitterImage;
-            }
-            this.previewImage = " ";
-            this.displayedMeta = true;
-          }
-        });
-      } catch (error) {
-        console.log(error);
+        } catch (error) {
+          this.error = true;
+        }
       }
     },
     uploadImage(e) {
@@ -434,6 +460,14 @@ export default {
     },
     showCode() {
       this.codeShowed = !this.codeShowed;
+    },
+    closeError() {
+      this.error = false;
+      this.url = " ";
+    },
+    closeErrorUrl() {
+      this.errorUrl = false;
+      this.url = " ";
     }
   }
 };
