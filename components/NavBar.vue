@@ -14,7 +14,8 @@
           ></v-img>
 
           <v-divider v-if="this.$vuetify.breakpoint.smAndUp" class="ma-4" inset vertical></v-divider>
-          <h3 class="align-center title">gettymeta</h3>
+          <h1 v-if="displayedMeta" class="align-center title">meta tags generator</h1>
+          <h3 v-else class="align-center title">gettymeta</h3>
         </div>
         <v-spacer v-if="this.$vuetify.breakpoint.smAndUp"></v-spacer>
         <v-spacer></v-spacer>

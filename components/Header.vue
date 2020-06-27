@@ -16,4 +16,9 @@ export default {
 .header {
   letter-spacing: 10px !important;
 }
+@media screen and (max-width: 375px) {
+  .header {
+    letter-spacing: 6px !important;
+  }
+}
 </style>

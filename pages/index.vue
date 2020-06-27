@@ -7,6 +7,7 @@
       :getLandingPage="getLandingPage"
     />
     <v-divider></v-divider>
+
     <v-container v-if="displayedMeta">
       <v-row justify="center">
         <v-divider class="ma-4" inset vertical></v-divider>
@@ -167,33 +168,35 @@
       </v-row>
 
       <v-divider></v-divider>
-      <Buttons :showCode="showCode" />
-      <v-divider :class="{footer_divider:!codeShowed  }"></v-divider>
+      <Buttons :showCode="showCode" :download="download" />
+      <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
       <v-card class="footer_divider" v-if="codeShowed">
-        <v-card-title>{{instructionCode}}</v-card-title>
+        <v-card-title>{{ instructionCode }}</v-card-title>
         <Prism language="html">
-          {{htmlCommentTag}}
-          {{codeTitle}}
-          {{codeDescription}}
-          {{facebookCommentTag}}
-          {{openGraphType}}
-          {{codeOgUrl}}
-          {{codeOgTitle}}
-          {{codeOgDescription}}
-          {{codeOgImg}}
-          {{twitterMetaTags}}
-          {{codeTwitterCard}}
-          {{codeTwitterUrl}}
-          {{codeTwitterTitle}}
-          {{codeTwitterDescription}}
-          {{codeTwitterImage}}
+          {{ htmlCommentTag }}
+          {{ codeTitleTag }}
+          {{ codeTitle }}
+          {{ codeDescription }}
+          {{ facebookCommentTag }}
+          {{ openGraphType }}
+          {{ codeOgUrl }}
+          {{ codeOgTitle }}
+          {{ codeOgDescription }}
+          {{ codeOgImg }}
+          {{ twitterMetaTags }}
+          {{ codeTwitterCard }}
+          {{ codeTwitterUrl }}
+          {{ codeTwitterTitle }}
+          {{ codeTwitterDescription }}
+          {{ codeTwitterImage }}
         </Prism>
       </v-card>
     </v-container>
-
-    <v-container v-else class="d-flex justify-center align-center">
-      <client-only>
-        <v-divider class="mr-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+    <div v-else>
+      <v-container class="d-flex justify-center align-center">
+        <client-only>
+          <v-divider class="mr-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+        </client-only>
         <div class="mt-4">
           <Header class="mt-4">
             <slot slot="subtitle">
@@ -208,6 +211,7 @@
                   v-model="url"
                   outlined
                   full-width
+                  :loading="loading"
                   placeholder="www.gettymeta.com"
                 ></v-text-field>
                 <v-btn icon class="mt-n5" @click="getMetatags">
@@ -215,29 +219,40 @@
                 </v-btn>
               </v-card>
               <div v-if="error" class="d-flex align-center justify-center">
-                <v-alert dense outlined transition="scale-transition" type="error">{{errorText}}</v-alert>
+                <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
                 <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
               </div>
               <div v-if="errorUrl" class="d-flex align-center justify-center">
-                <v-alert dense outlined transition="scale-transition" type="error">{{noUrlText}}</v-alert>
+                <v-alert dense outlined transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
                 <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
               </div>
             </slot>
           </Header>
         </div>
-        <v-divider class="ml-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
-      </client-only>
-    </v-container>
-    <v-footer absolute>
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} —
-        <strong>Vuetify</strong>
-      </v-col>
-    </v-footer>
+        <client-only>
+          <v-divider class="ml-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
+        </client-only>
+      </v-container>
+      <v-container class="footer_divider mt-8 d-flex justify-center flex-column flex-md-row">
+        <TextMetadata class="mr-2 mt-n5" />
+        <v-divider vertical></v-divider>
+        <titleAndDescription class="ml-2 mt" />
+      </v-container>
+    </div>
+    <v-card flat height="150">
+      <v-footer absolute class="font-weight-medium">
+        <v-col class="text-center" cols="12">
+          {{ new Date().getFullYear() }} —
+          <strong>Vuetify</strong>
+        </v-col>
+      </v-footer>
+    </v-card>
   </div>
 </template>
 
 <script>
+import titleAndDescription from "../components/titleAndDescription";
+import TextMetadata from "../components/TextMetadata";
 import Prism from "vue-prism-component";
 import Buttons from "../components/Buttons";
 import DisplayMeta from "../components/DisplayMeta";
@@ -246,12 +261,15 @@ import NavBar from "../components/NavBar";
 import "prismjs";
 import "prismjs/themes/prism.css";
 export default {
+  scrollToTop: true,
   components: {
     NavBar,
     Header,
     DisplayMeta,
     Buttons,
-    Prism
+    Prism,
+    TextMetadata,
+    titleAndDescription
   },
   data() {
     return {
@@ -259,6 +277,8 @@ export default {
       codeShowed: false,
       errorUrl: false,
       error: false,
+      loading: false,
+
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode:
@@ -274,12 +294,11 @@ export default {
       title: "Gettymeta - check and generate website meta tags",
 
       description:
-        "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
+        "Gettymeta is a free meta tags checker and generator. You can get Html, twitter and Facebook meta tags just inserting an URL or you can even generate meta tags for your website.",
+
       host: "www.gettymeta.com",
-      pathname:
-        "/economia/2020/06/17/news/stati_generali_bonomi_gravi_ritardi_su_cassa_integrazione_e_sostegni_liquidita_-259466951/ ",
+      pathname: "",
       charset: null,
-      keywords: "",
       fbImg: "/gettymeta_img.jpeg",
       facebookTitle: "Gettymeta - check and generate website meta tags",
       facebookDescription:
@@ -335,6 +354,9 @@ export default {
     codeTitle() {
       return `<meta name="title" content="${this.title}">`;
     },
+    codeTitleTag() {
+      return ` <title>${this.title}</title>`;
+    },
     codeDescription() {
       return `<meta name="description" content="${this.description}">`;
     },
@@ -373,13 +395,17 @@ export default {
       } else {
         try {
           const request = async () => {
-            let response = await fetch("http://localhost:4000/api", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                url: this.url
-              })
-            });
+            this.loading = true;
+            let response = await fetch(
+              "https://gettymeta-backend.herokuapp.com/api",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  url: this.url
+                })
+              }
+            );
             return response.json();
           };
           request().then(response => {
@@ -398,8 +424,12 @@ export default {
               } else {
                 this.description = response.description;
               }
-
               this.host = response.host;
+              if (!response.pathname) {
+                this.pathname = " ";
+              } else {
+                this.pathname = response.pathname;
+              }
               if (!response.ogImage) {
                 this.fbImg = "";
               } else {
@@ -434,10 +464,12 @@ export default {
               this.previewImage = " ";
               this.displayedMeta = true;
               this.url = " ";
+              this.loading = false;
             }
           });
         } catch (error) {
           this.error = true;
+          this.loading = false;
         }
       }
     },
@@ -468,6 +500,9 @@ export default {
     closeErrorUrl() {
       this.errorUrl = false;
       this.url = " ";
+    },
+    download() {
+      alert("download");
     }
   }
 };
@@ -526,14 +561,7 @@ export default {
 .footer_divider {
   margin-bottom: 160px !important;
 }
-.footer {
-  margin-top: 130px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
+.mt {
+  margin-top: 160px !important;
 }
 </style>
