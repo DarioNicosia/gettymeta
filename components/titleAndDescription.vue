@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card max-width="500" flat class="mt-7 mb-4 pa-3">
+    <v-card max-width="500" flat class="mt-7 mb-4 pa-3 text-card">
       <h2
         class="text-h4 mb-4 indigo--text text--darken-3"
       >Main meta tags recognized by google: title and description</h2>
@@ -28,6 +28,12 @@
           class="link indigo--text text--darken-3"
         >Google's instructions</a> on how to correctly implement a title tag.
       </p>
+      <h2
+        class="text-h5 mb-2 mt-7 indigo--text text--darken-3"
+      >What is and how to write the Meta Description</h2>
+      <p
+        class="text-h6 paragraph mt-3"
+      >The challenge in Meta Description is to summarize, but effectively, the page: what it contains, what it is used for, why it is worth reading. Your ad on the SERP will have to attract the attention of the user, in order to transform it - with his click - into a visitor to your site. Typically, search engines show the Meta Description in the search results under the Tag Title</p>
     </v-card>
   </div>
 </template>
@@ -38,7 +44,21 @@ export default {
 </script>
 
 <style scoped>
-.margin {
-  margin-top: 160px !important;
+.text-card {
+  animation: 1s appear cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both;
+}
+
+@keyframes appear {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    delay: 4s;
+    transform: translateY(-40px);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 </style>

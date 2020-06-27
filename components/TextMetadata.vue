@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card max-width="500" flat class="mt-n4 mb-4 pa-3">
+    <v-card max-width="500" flat class="mb-4 pa-3 text-card">
       <h2 class="text-h4 mb-4 indigo--text text--darken-3">Why check website meta tags is important?</h2>
       <v-divider class="mb-2"></v-divider>
       <p class="text-h6 paragraph">
@@ -35,5 +35,22 @@ export default {
 </script>
 
 <style scoped>
+.text-card {
+  animation: 1s appear cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
+}
+
+@keyframes appear {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    delay: 4s;
+    transform: translateX(40px);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 </style>
 

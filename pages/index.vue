@@ -1,252 +1,282 @@
 <template>
   <div>
-    <NavBar
-      class="mb-4"
-      v-bind:createMetaPage="createMetaPage"
-      :displayedMeta="displayedMeta"
-      :getLandingPage="getLandingPage"
-    />
-    <v-divider></v-divider>
-
-    <v-container v-if="displayedMeta">
-      <v-row justify="center">
-        <v-divider class="ma-4" inset vertical></v-divider>
-        <v-col cols="12" sm="4">
-          <v-card flat>
-            <v-card-title>Meta Tags</v-card-title>
-            <v-card-subtitle class="mt-5 mb-n2">Social image</v-card-subtitle>
-            <v-responsive>
-              <v-img :src="previewImage" class="uploading-image d-block" />
-            </v-responsive>
-            <input
-              type="file"
-              id="myFile"
-              name="myFile"
-              accept="image/*"
-              @change="uploadImage"
-              class="input-file"
-            />
-            <div class="d-flex justify-center mt-2 mb-3">
-              <v-btn small outlined color="indigo darken-3">
-                <label for="myFile">Upload your Image</label>
-                <v-icon small right color="indigo darken-3">mdi-upload</v-icon>
-              </v-btn>
-            </div>
-            <v-card-subtitle class="mt-5 mb-n2">Website / Host</v-card-subtitle>
-            <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
-            <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
-            <v-textarea filled v-model="urlFullPath" counter dense rows="1" color="indigo darken-3"></v-textarea>
-            <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
-            <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
-            <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
-            <v-textarea filled v-model="description" counter dense rows="5" color="indigo darken-3"></v-textarea>
-            <v-divider class="mt-3"></v-divider>
-            <v-card flat>
-              <div class="d-flex align-center justify-start">
-                <v-avatar width="30" height="30">
-                  <img src="/opengraph_logo.png" alt="open graph logo" />
-                </v-avatar>
-                <v-card-title class="ml-n3">OpenGraph</v-card-title>
-              </div>
-
-              <v-card-subtitle class="mb-n2">OpenGraph Title</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="facebookTitle"
-                counter
-                dense
-                rows="2"
-                color="indigo darken-3"
-              ></v-textarea>
-              <v-card-subtitle class="mb-n2">OpenGraph Description</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="facebookDescription"
-                counter
-                dense
-                rows="5"
-                color="indigo darken-3"
-              ></v-textarea>
-            </v-card>
-            <v-divider class="mt-3"></v-divider>
-            <v-card flat>
-              <div class="d-flex align-center justify-start">
-                <v-avatar width="30" height="30">
-                  <img src="/iconfinder_Twitter.png" alt="twitter logo" />
-                </v-avatar>
-                <v-card-title class="ml-n3">Twitter</v-card-title>
-              </div>
-
-              <v-card-subtitle class="mb-n2">Twitter Title</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="twitterTitle"
-                counter
-                dense
-                rows="2"
-                color="indigo darken-3"
-              ></v-textarea>
-              <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="twitterDescription"
-                counter
-                dense
-                rows="5"
-                color="indigo darken-3"
-              ></v-textarea>
-            </v-card>
-          </v-card>
-        </v-col>
-        <v-divider class="ma-4" inset vertical></v-divider>
-        <v-col cols="12" sm="6">
-          <v-card flat>
-            <v-card-title>Preview</v-card-title>
-            <div class="d-flex align-center">
-              <v-avatar class="mb-n3 mr-n4" width="20" height="20">
-                <img src="/google.png" alt="google logo" />
-              </v-avatar>
-              <v-card-subtitle class="mt-2 mb-n2">Google</v-card-subtitle>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <v-card class="px-3 py-2" :flat="this.$vuetify.breakpoint.smAndUp">
-              <p class="host">{{ trimmedHost }}</p>
-              <p class="font-title mt-n4">{{ trimmedTitle }}</p>
-              <p class="font-description mt-n4">{{ trimmedDescription }}</p>
-            </v-card>
-            <div class="d-flex align-center">
-              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
-                <img src="/iconfinder_Twitter.png" alt="twitter  logo" />
-              </v-avatar>
-              <v-card-subtitle class="mt-2 mb-n2">Twitter</v-card-subtitle>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <v-card max-width="500" flat outlined>
-              <v-responsive aspect-ratio="2:1">
-                <v-img :src="twitterImg" max-width="600" max-height="300"></v-img>
-              </v-responsive>
-              <h3 class="twitter-title ml-2 mt-1 mr-1">{{ trimmedTwitterTitle }}</h3>
-              <p class="twitter-description ml-2 mr-1">{{ trimmedTwitterDescription }}</p>
-              <p class="ml-2 mt-n3 twitter-host mb-2">{{ trimmedHost }}</p>
-            </v-card>
-            <div class="d-flex align-center mt-3">
-              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
-                <img src="/facebook.png" alt="facebook logo" />
-              </v-avatar>
-              <v-card-subtitle class="mt-2 mb-n2">Facebook</v-card-subtitle>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <v-card max-width="500" flat outlined>
-              <v-responsive aspect-ratio="2:1">
-                <v-img :src="fbImg" max-width="600" max-height="300"></v-img>
-              </v-responsive>
-              <v-divider></v-divider>
-              <div class="grey lighten-3 py-3">
-                <p class="ml-2 facebook-host">{{ trimmedHost }}</p>
-                <h3 class="facebook-title ml-2 mt-n4 mr-1">{{ trimmedFbTitle }}</h3>
-              </div>
-            </v-card>
-            <div class="d-flex align-center mt-3">
-              <v-avatar class="mb-n3 mr-n4" width="25" height="25">
-                <img src="/linkedin.png" alt="linkedin logo" />
-              </v-avatar>
-              <v-card-subtitle class="mt-2 mb-n2">Linkedin</v-card-subtitle>
-              <v-divider class="mt-4"></v-divider>
-            </div>
-            <v-card max-width="500" flat outlined>
-              <v-responsive aspect-ratio="2:1">
-                <v-img :src="fbImg" max-width="600" max-height="300"></v-img>
-              </v-responsive>
-              <v-divider></v-divider>
-              <div class="grey lighten-3 py-3">
-                <h3 class="facebook-title ml-2 mr-1">{{ trimmedFbTitle }}</h3>
-                <p class="ml-2 linkedin-host mb-n1">{{ trimmedHost }}</p>
-              </div>
-            </v-card>
-          </v-card>
-        </v-col>
-      </v-row>
-
+    <div v-if="rendered">
+      <NavBar
+        class="mb-4"
+        v-bind:createMetaPage="createMetaPage"
+        :displayedMeta="displayedMeta"
+        :getLandingPage="getLandingPage"
+      />
       <v-divider></v-divider>
-      <Buttons :showCode="showCode" :download="download" />
-      <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
-      <v-card class="footer_divider" v-if="codeShowed">
-        <v-card-title>{{ instructionCode }}</v-card-title>
-        <Prism language="html">
-          {{ htmlCommentTag }}
-          {{ codeTitleTag }}
-          {{ codeTitle }}
-          {{ codeDescription }}
-          {{ facebookCommentTag }}
-          {{ openGraphType }}
-          {{ codeOgUrl }}
-          {{ codeOgTitle }}
-          {{ codeOgDescription }}
-          {{ codeOgImg }}
-          {{ twitterMetaTags }}
-          {{ codeTwitterCard }}
-          {{ codeTwitterUrl }}
-          {{ codeTwitterTitle }}
-          {{ codeTwitterDescription }}
-          {{ codeTwitterImage }}
-        </Prism>
-      </v-card>
-    </v-container>
-    <div v-else>
-      <v-container class="d-flex justify-center align-center">
-        <client-only>
-          <v-divider class="mr-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
-        </client-only>
-        <div class="mt-4">
-          <Header class="mt-4">
-            <slot slot="subtitle">
-              <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
-            </slot>
-            <slot slot="input">
-              <v-card flat class="d-flex align-center justify-center">
-                <v-text-field
-                  background-color="grey lighten-4"
-                  class="mt-3"
-                  color="indigo darken-3"
-                  v-model="url"
-                  outlined
-                  full-width
-                  :loading="loading"
-                  placeholder="www.gettymeta.com"
-                ></v-text-field>
-                <v-btn icon class="mt-n5" @click="getMetatags">
-                  <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
+
+      <v-container v-if="displayedMeta">
+        <v-row justify="center">
+          <v-divider class="ma-4" inset vertical></v-divider>
+          <v-col cols="12" sm="4" class="column_metadata">
+            <v-card flat>
+              <v-card-title>Meta Tags</v-card-title>
+              <v-card-subtitle class="mt-5 mb-n2">Social image</v-card-subtitle>
+              <v-responsive>
+                <v-img :src="previewImage" class="uploading-image d-block" />
+              </v-responsive>
+              <input
+                type="file"
+                id="myFile"
+                name="myFile"
+                accept="image/*"
+                @change="uploadImage"
+                class="input-file"
+              />
+              <div class="d-flex justify-center mt-2 mb-3">
+                <v-btn small outlined color="indigo darken-3">
+                  <label for="myFile">Upload your Image</label>
+                  <v-icon small right color="indigo darken-3">mdi-upload</v-icon>
                 </v-btn>
+              </div>
+              <v-card-subtitle class="mt-5 mb-n2">Website / Host</v-card-subtitle>
+              <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
+              <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
+              <v-textarea
+                filled
+                v-model="urlFullPath"
+                counter
+                dense
+                rows="1"
+                color="indigo darken-3"
+              ></v-textarea>
+              <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
+              <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
+              <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
+              <v-textarea
+                filled
+                v-model="description"
+                counter
+                dense
+                rows="5"
+                color="indigo darken-3"
+              ></v-textarea>
+              <v-divider class="mt-3"></v-divider>
+              <v-card flat>
+                <div class="d-flex align-center justify-start">
+                  <v-avatar width="30" height="30">
+                    <img src="/opengraph_logo.png" alt="open graph logo" />
+                  </v-avatar>
+                  <v-card-title class="ml-n3">OpenGraph</v-card-title>
+                </div>
+
+                <v-card-subtitle class="mb-n2">OpenGraph Title</v-card-subtitle>
+                <v-textarea
+                  filled
+                  v-model="facebookTitle"
+                  counter
+                  dense
+                  rows="2"
+                  color="indigo darken-3"
+                ></v-textarea>
+                <v-card-subtitle class="mb-n2">OpenGraph Description</v-card-subtitle>
+                <v-textarea
+                  filled
+                  v-model="facebookDescription"
+                  counter
+                  dense
+                  rows="5"
+                  color="indigo darken-3"
+                ></v-textarea>
               </v-card>
-              <div v-if="error" class="d-flex align-center justify-center">
-                <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
-                <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
+              <v-divider class="mt-3"></v-divider>
+              <v-card flat>
+                <div class="d-flex align-center justify-start">
+                  <v-avatar width="30" height="30">
+                    <img src="/iconfinder_Twitter.png" alt="twitter logo" />
+                  </v-avatar>
+                  <v-card-title class="ml-n3">Twitter</v-card-title>
+                </div>
+
+                <v-card-subtitle class="mb-n2">Twitter Title</v-card-subtitle>
+                <v-textarea
+                  filled
+                  v-model="twitterTitle"
+                  counter
+                  dense
+                  rows="2"
+                  color="indigo darken-3"
+                ></v-textarea>
+                <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
+                <v-textarea
+                  filled
+                  v-model="twitterDescription"
+                  counter
+                  dense
+                  rows="5"
+                  color="indigo darken-3"
+                ></v-textarea>
+              </v-card>
+            </v-card>
+          </v-col>
+          <v-divider class="ma-4" inset vertical></v-divider>
+          <v-col cols="12" sm="6" class="column_preview">
+            <v-card flat>
+              <v-card-title>Preview</v-card-title>
+              <div class="d-flex align-center">
+                <v-avatar class="mb-n3 mr-n4" width="20" height="20">
+                  <img src="/google.png" alt="google logo" />
+                </v-avatar>
+                <v-card-subtitle class="mt-2 mb-n2">Google</v-card-subtitle>
+                <v-divider class="mt-4"></v-divider>
               </div>
-              <div v-if="errorUrl" class="d-flex align-center justify-center">
-                <v-alert dense outlined transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
-                <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
+              <v-card class="px-3 py-2" :flat="this.$vuetify.breakpoint.smAndUp">
+                <p class="host">{{ trimmedHost }}</p>
+                <p class="font-title mt-n4">{{ trimmedTitle }}</p>
+                <p class="font-description mt-n4">{{ trimmedDescription }}</p>
+              </v-card>
+              <div class="d-flex align-center">
+                <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                  <img src="/iconfinder_Twitter.png" alt="twitter  logo" />
+                </v-avatar>
+                <v-card-subtitle class="mt-2 mb-n2">Twitter</v-card-subtitle>
+                <v-divider class="mt-4"></v-divider>
               </div>
-            </slot>
-          </Header>
-        </div>
-        <client-only>
-          <v-divider class="ml-8 px-3" inset vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
-        </client-only>
+              <v-card max-width="500" flat outlined>
+                <v-responsive aspect-ratio="2:1">
+                  <v-img :src="twitterImg" max-width="600" max-height="300"></v-img>
+                </v-responsive>
+                <h3 class="twitter-title ml-2 mt-1 mr-1">{{ trimmedTwitterTitle }}</h3>
+                <p class="twitter-description ml-2 mr-1">{{ trimmedTwitterDescription }}</p>
+                <p class="ml-2 mt-n3 twitter-host mb-2">{{ trimmedHost }}</p>
+              </v-card>
+              <div class="d-flex align-center mt-3">
+                <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                  <img src="/facebook.png" alt="facebook logo" />
+                </v-avatar>
+                <v-card-subtitle class="mt-2 mb-n2">Facebook</v-card-subtitle>
+                <v-divider class="mt-4"></v-divider>
+              </div>
+              <v-card max-width="500" flat outlined>
+                <v-responsive aspect-ratio="2:1">
+                  <v-img :src="fbImg" max-width="600" max-height="300"></v-img>
+                </v-responsive>
+                <v-divider></v-divider>
+                <div class="grey lighten-3 py-3">
+                  <p class="ml-2 facebook-host">{{ trimmedHost }}</p>
+                  <h3 class="facebook-title ml-2 mt-n4 mr-1">{{ trimmedFbTitle }}</h3>
+                </div>
+              </v-card>
+              <div class="d-flex align-center mt-3">
+                <v-avatar class="mb-n3 mr-n4" width="25" height="25">
+                  <img src="/linkedin.png" alt="linkedin logo" />
+                </v-avatar>
+                <v-card-subtitle class="mt-2 mb-n2">Linkedin</v-card-subtitle>
+                <v-divider class="mt-4"></v-divider>
+              </div>
+              <v-card max-width="500" flat outlined>
+                <v-responsive aspect-ratio="2:1">
+                  <v-img :src="fbImg" max-width="600" max-height="300"></v-img>
+                </v-responsive>
+                <v-divider></v-divider>
+                <div class="grey lighten-3 py-3">
+                  <h3 class="facebook-title ml-2 mr-1">{{ trimmedFbTitle }}</h3>
+                  <p class="ml-2 linkedin-host mb-n1">{{ trimmedHost }}</p>
+                </div>
+              </v-card>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <v-divider></v-divider>
+        <Buttons :showCode="showCode" :download="download" />
+        <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
+        <v-card class="footer_divider" v-if="codeShowed">
+          <v-card-title>{{ instructionCode }}</v-card-title>
+          <Prism language="html">
+            {{ htmlCommentTag }}
+            {{ codeTitleTag }}
+            {{ codeTitle }}
+            {{ codeDescription }}
+            {{ facebookCommentTag }}
+            {{ openGraphType }}
+            {{ codeOgUrl }}
+            {{ codeOgTitle }}
+            {{ codeOgDescription }}
+            {{ codeOgImg }}
+            {{ twitterMetaTags }}
+            {{ codeTwitterCard }}
+            {{ codeTwitterUrl }}
+            {{ codeTwitterTitle }}
+            {{ codeTwitterDescription }}
+            {{ codeTwitterImage }}
+          </Prism>
+        </v-card>
       </v-container>
-      <v-container class="footer_divider mt-8 d-flex justify-center flex-column flex-md-row">
-        <TextMetadata class="mr-2 mt-n5" />
-        <v-divider vertical></v-divider>
-        <titleAndDescription class="ml-2 mt" />
-      </v-container>
+      <div v-else>
+        <v-container class="d-flex justify-center align-center">
+          <v-divider class="mr-8 px-3 divider" inset vertical></v-divider>
+
+          <div class="mt-4">
+            <Header class="mt-4">
+              <slot slot="subtitle">
+                <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
+              </slot>
+              <slot slot="input">
+                <v-card flat class="d-flex align-center justify-center">
+                  <v-text-field
+                    background-color="grey lighten-4"
+                    class="mt-3"
+                    color="indigo darken-3"
+                    v-model="url"
+                    outlined
+                    full-width
+                    :loading="loading"
+                    placeholder="www.gettymeta.com"
+                  ></v-text-field>
+                  <v-btn icon class="mt-n5" @click="getMetatags">
+                    <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
+                  </v-btn>
+                </v-card>
+                <div v-if="error" class="d-flex align-center justify-center">
+                  <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
+                  <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
+                </div>
+                <div v-if="errorUrl" class="d-flex align-center justify-center">
+                  <v-alert dense outlined transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
+                  <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
+                </div>
+              </slot>
+            </Header>
+          </div>
+
+          <v-divider class="ml-8 px-3 divider" inset vertical></v-divider>
+        </v-container>
+        <v-container
+          class="footer_divider d-flex justify-center flex-column flex-md-row container_articles"
+        >
+          <TextMetadata class="mr-2" />
+          <v-divider vertical></v-divider>
+          <titleAndDescription class="ml-2" :class="{margin:this.$vuetify.breakpoint.mdAndUp}" />
+        </v-container>
+      </div>
+      <v-card flat height="150">
+        <v-footer absolute class="font-weight-medium">
+          <v-col class="text-center" cols="12">
+            {{ new Date().getFullYear() }} —
+            <strong>Vuetify</strong>
+          </v-col>
+        </v-footer>
+      </v-card>
     </div>
-    <v-card flat height="150">
-      <v-footer absolute class="font-weight-medium">
-        <v-col class="text-center" cols="12">
-          {{ new Date().getFullYear() }} —
-          <strong>Vuetify</strong>
-        </v-col>
-      </v-footer>
-    </v-card>
+    <div v-else>
+      <div class="center-screen">
+        <v-card flat>
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="15"
+            indeterminate
+            color="indigo darken-3"
+          ></v-progress-circular>
+          <v-card-title class="indigo--text text--darken-3">gettymeta</v-card-title>
+        </v-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -278,7 +308,9 @@ export default {
       errorUrl: false,
       error: false,
       loading: false,
-
+      rendered: false,
+      interval: {},
+      value: 0,
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode:
@@ -504,6 +536,9 @@ export default {
     download() {
       alert("download");
     }
+  },
+  created() {
+    this.interval = setTimeout(() => (this.rendered = true), 3000);
   }
 };
 </script>
@@ -561,7 +596,54 @@ export default {
 .footer_divider {
   margin-bottom: 160px !important;
 }
-.mt {
+.margin {
   margin-top: 160px !important;
+}
+.container_articles {
+  margin-top: 80px !important;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+}
+
+.column_metadata {
+  animation: 1s appear cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes appear {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    delay: 4s;
+    transform: translateX(-40px);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.column_preview {
+  animation: 1s appear cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+@keyframes appear {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    delay: 4s;
+    transform: translateX(-10px);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 </style>
