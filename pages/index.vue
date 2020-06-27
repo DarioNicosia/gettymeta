@@ -291,7 +291,30 @@ import NavBar from "../components/NavBar";
 import "prismjs";
 import "prismjs/themes/prism.css";
 export default {
-  scrollToTop: true,
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.description
+        },
+        { name: "twitter:title", content: this.twitterTitle },
+        { name: "twitter:description", content: this.twitterDescription },
+        { name: "twitter:image", content: this.twitterImg },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:url", content: this.$nuxt.$route.path },
+
+        { name: "og:title", content: this.facebookTitle },
+        { name: "og:description", content: this.facebookDescription },
+        { name: "og:image", content: this.fbImg },
+        { name: "og:type", content: "website" },
+        { name: "og:url", content: this.$nuxt.$route.path }
+      ]
+    };
+  },
+
   components: {
     NavBar,
     Header,
@@ -301,6 +324,7 @@ export default {
     TextMetadata,
     titleAndDescription
   },
+
   data() {
     return {
       overlay: false,
@@ -326,7 +350,7 @@ export default {
       title: "Gettymeta - check and generate website meta tags",
 
       description:
-        "Gettymeta is a free meta tags checker and generator. You can get Html, twitter and Facebook meta tags just inserting an URL or you can even generate meta tags for your website.",
+        "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags just inserting an URL or even generate meta tags for your website.",
 
       host: "www.gettymeta.com",
       pathname: "",
@@ -535,6 +559,7 @@ export default {
     },
     download() {
       alert("download");
+      console.log(this.$nuxt.$route.path);
     }
   },
   created() {
