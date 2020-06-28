@@ -23,6 +23,7 @@
     "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
+    "@nuxtjs/google-analytics": "^2.3.0",
     "@nuxtjs/vuetify": "^1.0.0"
   }
 }
