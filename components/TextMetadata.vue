@@ -25,6 +25,15 @@
           class="link indigo--text text--darken-3"
         >specific guidelines.</a>
       </p>
+      <v-divider class="mb-2"></v-divider>
+      <h2
+        class="text-h4 mb-4 indigo--text text--darken-3"
+      >Open Graph protocol: meta tags for social network</h2>
+
+      <p class="text-h6 paragraph">
+        Open Graph is a protocol that allows any web page to be transformed into valuable visual content. Basically, it allows you to indicate to social networks such as Facebook, Pinterest and LinkedIn what information to show when someone shares a link to your site.
+        For this to happen you need to insert specific meta tags in the HTML source code that will make the elements you want to share recognizable to crawlers. In the absence of this meta-information, the crawlers will automatically detect what the relevant elements are and proceed to share them.
+      </p>
     </v-card>
   </div>
 </template>

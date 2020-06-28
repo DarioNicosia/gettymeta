@@ -15,25 +15,25 @@
           <v-col cols="12" sm="4" class="column_metadata">
             <v-card flat>
               <v-card-title>Meta Tags</v-card-title>
-              <v-card-subtitle class="mt-5 mb-n2">Social image</v-card-subtitle>
+              <v-card-subtitle class="mt-5 mb-n2">Social image url</v-card-subtitle>
               <v-responsive>
-                <v-img :src="previewImage" class="uploading-image d-block" />
+                <v-img :src="previewImage" class="uploading-image d-block" max-height="200" />
               </v-responsive>
-              <input
-                type="file"
-                id="myFile"
-                name="myFile"
-                accept="image/*"
-                @change="uploadImage"
-                class="input-file"
-              />
-              <div class="d-flex justify-center mt-2 mb-3">
-                <v-btn small outlined color="indigo darken-3">
-                  <label for="myFile">Upload your Image</label>
-                  <v-icon small right color="indigo darken-3">mdi-upload</v-icon>
+              <div class="d-flex align-center">
+                <v-text-field
+                  @change="insertUrlImage"
+                  dense
+                  filled
+                  color="indigo darken-3"
+                  class="mt-3"
+                  v-model="previewImage"
+                  clear-icon
+                ></v-text-field>
+                <v-btn icon class="mt-n2" @click="clearImageUrl">
+                  <v-icon>mdi-close</v-icon>
                 </v-btn>
               </div>
-              <v-card-subtitle class="mt-5 mb-n2">Website / Host</v-card-subtitle>
+              <v-card-subtitle class="mb-n2">Website / Host</v-card-subtitle>
               <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
               <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
               <v-textarea
@@ -196,7 +196,6 @@
             v-clipboard:success="onCopy"
             color="indigo darken-3"
             class="pa-2 ma-2"
-            flat
             outlined
           >
             copy
@@ -259,11 +258,11 @@
           <titleAndDescription class="ml-2" :class="{ margin: this.$vuetify.breakpoint.mdAndUp }" />
         </v-container>
       </div>
-      <v-card flat height="150">
-        <v-footer absolute class="font-weight-medium">
+      <v-card flat height="130">
+        <v-divider></v-divider>
+        <v-footer absolute class="font-weight-medium" height="120" color="white">
           <v-col class="text-center" cols="12">
-            {{ new Date().getFullYear() }} —
-            <strong>Vuetify</strong>
+            <strong class="indigo--text text--darken-3">gettymeta | {{ new Date().getFullYear() }}</strong>
           </v-col>
         </v-footer>
       </v-card>
@@ -298,22 +297,37 @@ import "prismjs/themes/prism.css";
 export default {
   head() {
     return {
-      title: this.title,
+      title: "Gettymeta - Check and generate website meta tags",
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.description
+          content:
+            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate meta tags for your website and see how they display on different social network "
         },
-        { name: "twitter:title", content: this.twitterTitle },
-        { name: "twitter:description", content: this.twitterDescription },
-        { name: "twitter:image", content: this.twitterImg },
+        {
+          name: "twitter:title",
+          content: "Gettymeta - Check and generate website meta tags"
+        },
+        {
+          name: "twitter:description",
+          content:
+            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
+        },
+        { name: "twitter:image", content: "/gettymeta_img.jpeg" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:url", content: this.$nuxt.$route.path },
 
-        { name: "og:title", content: this.facebookTitle },
-        { name: "og:description", content: this.facebookDescription },
-        { name: "og:image", content: this.fbImg },
+        {
+          name: "og:title",
+          content: "Gettymeta - check and generate website meta tags"
+        },
+        {
+          name: "og:description",
+          content:
+            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
+        },
+        { name: "og:image", content: "/gettymeta_img.jpeg" },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$nuxt.$route.path }
       ]
@@ -340,7 +354,7 @@ export default {
       loading: false,
       rendered: false,
       interval: {},
-      value: 0,
+
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode: "Your generated code",
@@ -412,42 +426,7 @@ export default {
     urlFullPath() {
       return this.host + this.pathname;
     },
-    codeTitle() {
-      return `<meta name="title" content="${this.title}">`;
-    },
-    codeTitleTag() {
-      return ` <title>${this.title}</title>`;
-    },
-    codeDescription() {
-      return `<meta name="description" content="${this.description}">`;
-    },
-    codeOgUrl() {
-      return `<meta property="og:url" content="${this.urlFullPath}">`;
-    },
-    codeOgTitle() {
-      return `<meta property="og:title" content="${this.facebookTitle}">`;
-    },
-    codeOgDescription() {
-      return `<meta property="og:description" content="${this.facebookDescription}">`;
-    },
-    codeOgImg() {
-      return `<meta property="og:image" content="${this.fbImg}">`;
-    },
-    codeTwitterCard() {
-      return `<meta property="twitter:card" content="summary_large_image">`;
-    },
-    codeTwitterUrl() {
-      return `<meta property="twitter:url" content="${this.urlFullPath}">`;
-    },
-    codeTwitterTitle() {
-      return `<meta property="twitter:title" content="${this.twitterTitle}">`;
-    },
-    codeTwitterDescription() {
-      return `<meta property="twitter:description" content="${this.twitterDescription}">`;
-    },
-    codeTwitterImage() {
-      return `<meta property="twitter:image" content="${this.twitterImg}">`;
-    },
+
     codeTotal() {
       return (
         "<!-- HTML Meta Tags -->\n" +
@@ -554,16 +533,9 @@ export default {
         }
       }
     },
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = e => {
-        this.previewImage = e.target.result;
-        this.fbImg = this.previewImage;
-        this.twitterImg = this.previewImage;
-        console.log(this.previewImage);
-      };
+    insertUrlImage() {
+      this.fbImg = this.previewImage;
+      this.twitterImg = this.previewImage;
     },
     createMetaPage() {
       this.displayedMeta = true;
@@ -581,6 +553,11 @@ export default {
     closeErrorUrl() {
       this.errorUrl = false;
       this.url = "";
+    },
+    clearImageUrl() {
+      this.previewImage = " ";
+      this.fbImg = " ";
+      this.twitterImg = " ";
     },
 
     onCopy() {

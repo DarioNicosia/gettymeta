@@ -31,6 +31,9 @@
       <h2
         class="text-h5 mb-2 mt-7 indigo--text text--darken-3"
       >What is and how to write the Meta Description</h2>
+      <v-card class="my-6">
+        <v-img src="/description.jpeg" alt="description tag example"></v-img>
+      </v-card>
       <p
         class="text-h6 paragraph mt-3"
       >The challenge in Meta Description is to summarize, but effectively, the page: what it contains, what it is used for, why it is worth reading. Your ad on the SERP will have to attract the attention of the user, in order to transform it - with his click - into a visitor to your site. Typically, search engines show the Meta Description in the search results under the Tag Title</p>
