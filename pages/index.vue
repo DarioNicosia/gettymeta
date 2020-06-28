@@ -314,7 +314,7 @@ export default {
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { name: "twitter:image", content: "/gettymeta_img.jpeg" },
+        { name: "twitter:image", content: "/gettymeta_img.png" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:url", content: this.$nuxt.$route.path },
 
@@ -327,7 +327,7 @@ export default {
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { name: "og:image", content: "/gettymeta_img.jpeg" },
+        { name: "og:image", content: "/gettymeta_img.png" },
         { name: "og:type", content: "website" },
         { name: "og:url", content: this.$nuxt.$route.path }
       ]
@@ -358,14 +358,11 @@ export default {
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode: "Your generated code",
-      htmlCommentTag: "<!-- HTML Meta Tags -->",
-      facebookCommentTag: "<!-- Open Graph / Facebook Meta Tags -->",
-      openGraphType: '<meta property="og:type" content="website">',
-      twitterMetaTags: "<!-- Twitter Meta Tags -->",
+
       displayedMeta: false,
       overlay: false,
       url: "",
-      previewImage: "/gettymeta_img.jpeg",
+      previewImage: "/gettymeta_img.png",
       title: "Gettymeta - check and generate website meta tags",
 
       description:
@@ -374,7 +371,7 @@ export default {
       host: "www.gettymeta.com",
       pathname: "",
       charset: null,
-      fbImg: "/gettymeta_img.jpeg",
+      fbImg: "/gettymeta_img.png",
       facebookTitle: "Gettymeta - check and generate website meta tags",
       facebookDescription:
         "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
@@ -383,7 +380,7 @@ export default {
       twitterDescription:
         "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
 
-      twitterImg: "/gettymeta_img.jpeg"
+      twitterImg: "/gettymeta_img.png"
     };
   },
   computed: {
