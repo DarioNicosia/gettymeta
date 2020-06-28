@@ -36,7 +36,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/highlight.js"],
+  plugins: ["@/plugins/highlight.js", "@/plugins/clipboard.js"],
   /*
    ** Nuxt.js dev-modules
    */

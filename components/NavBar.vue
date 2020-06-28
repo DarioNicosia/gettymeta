@@ -16,8 +16,8 @@
         <client-only>
           <v-divider v-if="this.$vuetify.breakpoint.smAndUp" class="ma-4" inset vertical></v-divider>
         </client-only>
-        <h1 v-if="displayedMeta" class="align-center title">meta tags generator</h1>
-        <h3 v-else class="align-center title">gettymeta</h3>
+        <h1 v-if="displayedMeta" class="align-center title">tags generator</h1>
+        <h3 v-else class="align-center title">tags checker</h3>
       </div>
       <client-only>
         <v-spacer v-if="this.$vuetify.breakpoint.smAndUp"></v-spacer>
@@ -29,18 +29,18 @@
         @click="createMetaPage"
         v-if="displayedMeta ===false"
         outlined
-        small
+        :x-small="this.$vuetify.breakpoint.smAndDown"
         class="mt-3"
       >
-        <v-icon left small>mdi-code-tags</v-icon>create
+        <v-icon left small>mdi-code-tags</v-icon>generate
       </v-btn>
       <v-btn
         color="indigo darken-3"
-        small
         @click="getLandingPage"
         v-if="displayedMeta"
         outlined
         class="mt-3"
+        :x-small="this.$vuetify.breakpoint.smAndDown"
       >
         <v-icon left small>mdi-arrow-left</v-icon>back
       </v-btn>

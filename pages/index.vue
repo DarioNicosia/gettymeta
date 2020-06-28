@@ -183,28 +183,33 @@
         </v-row>
 
         <v-divider></v-divider>
-        <Buttons :showCode="showCode" :download="download" />
+        <Buttons :showCode="showCode" />
         <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
-        <v-card class="footer_divider" v-if="codeShowed">
-          <v-card-title>{{ instructionCode }}</v-card-title>
-          <Prism language="html">
-            {{ htmlCommentTag }}
-            {{ codeTitleTag }}
-            {{ codeTitle }}
-            {{ codeDescription }}
-            {{ facebookCommentTag }}
-            {{ openGraphType }}
-            {{ codeOgUrl }}
-            {{ codeOgTitle }}
-            {{ codeOgDescription }}
-            {{ codeOgImg }}
-            {{ twitterMetaTags }}
-            {{ codeTwitterCard }}
-            {{ codeTwitterUrl }}
-            {{ codeTwitterTitle }}
-            {{ codeTwitterDescription }}
-            {{ codeTwitterImage }}
-          </Prism>
+        <v-card flat outlined class="footer_divider mt-3" v-if="codeShowed">
+          <v-card-title>
+            <strong>{{ instructionCode }}</strong>
+          </v-card-title>
+          <Prism language="html">{{codeTotal}}</Prism>
+
+          <v-btn
+            v-clipboard:copy="codeTotal"
+            v-clipboard:success="onCopy"
+            color="indigo darken-3"
+            class="pa-2 ma-2"
+            flat
+            outlined
+          >
+            copy
+            <span>
+              <v-icon right small>mdi-content-copy</v-icon>
+            </span>
+          </v-btn>
+          <v-tooltip v-model="show" top>
+            <template v-slot:activator="{ on, attrs }">
+              <span icon v-bind="attrs" v-on="on"></span>
+            </template>
+            <span>Code Copied!</span>
+          </v-tooltip>
         </v-card>
       </v-container>
       <div v-else>
@@ -251,7 +256,7 @@
         >
           <TextMetadata class="mr-2" />
           <v-divider vertical></v-divider>
-          <titleAndDescription class="ml-2" :class="{margin:this.$vuetify.breakpoint.mdAndUp}" />
+          <titleAndDescription class="ml-2" :class="{ margin: this.$vuetify.breakpoint.mdAndUp }" />
         </v-container>
       </div>
       <v-card flat height="150">
@@ -327,6 +332,7 @@ export default {
 
   data() {
     return {
+      show: false,
       overlay: false,
       codeShowed: false,
       errorUrl: false,
@@ -337,8 +343,7 @@ export default {
       value: 0,
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
-      instructionCode:
-        "Copy the code and paste it into the <head> of your website",
+      instructionCode: "Your generated code",
       htmlCommentTag: "<!-- HTML Meta Tags -->",
       facebookCommentTag: "<!-- Open Graph / Facebook Meta Tags -->",
       openGraphType: '<meta property="og:type" content="website">',
@@ -442,6 +447,26 @@ export default {
     },
     codeTwitterImage() {
       return `<meta property="twitter:image" content="${this.twitterImg}">`;
+    },
+    codeTotal() {
+      return (
+        "<!-- HTML Meta Tags -->\n" +
+        `<title>${this.title}</title>\n` +
+        `<meta name="title" content="${this.title}"> \n` +
+        `<meta name="description" content="${this.description}">\n` +
+        "<!-- Open Graph / Facebook Meta Tags -->\n" +
+        '<meta property="og:type" content="website">\n' +
+        `<meta property="og:url" content="${this.urlFullPath}">\n` +
+        `<meta property="og:title" content="${this.facebookTitle}">\n` +
+        `<meta property="og:description" content="${this.facebookDescription}">\n` +
+        `<meta property="og:image" content="${this.fbImg}">\n` +
+        "<!-- Twitter Meta Tags -->\n" +
+        `<meta property="twitter:title" content="${this.twitterTitle}">\n` +
+        `<meta property="twitter:description" content="${this.twitterDescription}">\n` +
+        `<meta property="twitter:image" content="${this.twitterImg}">\n` +
+        `<meta property="twitter:card" content="summary_large_image">\n` +
+        `<meta property="twitter:url" content="${this.urlFullPath}">\n`
+      );
     }
   },
   methods: {
@@ -551,15 +576,16 @@ export default {
     },
     closeError() {
       this.error = false;
-      this.url = " ";
+      this.url = "";
     },
     closeErrorUrl() {
       this.errorUrl = false;
-      this.url = " ";
+      this.url = "";
     },
-    download() {
-      alert("download");
-      console.log(this.$nuxt.$route.path);
+
+    onCopy() {
+      this.show = true;
+      setTimeout(() => (this.show = false), 3000);
     }
   },
   created() {
