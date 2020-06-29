@@ -309,21 +309,21 @@ export default {
             "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate it for your website  "
         },
         {
-          property: "twitter:title",
+          name: "twitter:title",
           content: "Gettymeta - Check and generate website meta tags"
         },
         {
-          property: "twitter:site",
+          name: "twitter:site",
           content: "@gettymeta"
         },
         {
-          property: "twitter:description",
+          name: "twitter:description",
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { property: "twitter:image", content: "/gettymeta_img.png" },
-        { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:url", content: "https://gettymeta.com/" },
+        { name: "twitter:image", content: "/gettymeta_img.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:url", content: "https://gettymeta.com/" },
         { property: "og:type", content: "website" },
 
         {
@@ -445,11 +445,11 @@ export default {
         `<meta property="og:description" content="${this.facebookDescription}">\n` +
         `<meta property="og:image" content="${this.fbImg}">\n` +
         "<!-- Twitter Meta Tags -->\n" +
-        `<meta property="twitter:title" content="${this.twitterTitle}">\n` +
-        `<meta property="twitter:description" content="${this.twitterDescription}">\n` +
-        `<meta property="twitter:image" content="${this.twitterImg}">\n` +
-        `<meta property="twitter:card" content="summary_large_image">\n` +
-        `<meta property="twitter:url" content="${this.urlFullPath}">\n`
+        `<meta name="twitter:title" content="${this.twitterTitle}">\n` +
+        `<meta name="twitter:description" content="${this.twitterDescription}">\n` +
+        `<meta name="twitter:image" content="${this.twitterImg}">\n` +
+        `<meta name="twitter:card" content="summary_large_image">\n` +
+        `<meta name="twitter:url" content="${this.urlFullPath}">\n`
       );
     }
   },
