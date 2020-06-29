@@ -498,6 +498,7 @@ export default {
                 this.fbImg = "";
               } else {
                 this.fbImg = response.ogImage;
+                this.previewImage = response.ogImage;
               }
               if (!response.ogTitle) {
                 this.facebookTitle = " ";
@@ -525,7 +526,6 @@ export default {
               } else {
                 this.twitterImg = response.twitterImage;
               }
-              this.previewImage = " ";
               this.displayedMeta = true;
               this.url = " ";
               this.loading = false;
