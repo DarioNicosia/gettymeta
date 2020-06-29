@@ -15,15 +15,9 @@
           <v-col cols="12" sm="4" class="column_metadata">
             <v-card flat>
               <v-card-title>Meta Tags</v-card-title>
-              <v-card-subtitle class="mt-5 mb-n2"
-                >Social image url</v-card-subtitle
-              >
+              <v-card-subtitle class="mt-5 mb-n2">Social image url</v-card-subtitle>
               <v-responsive>
-                <v-img
-                  :src="previewImage"
-                  class="uploading-image d-block"
-                  max-height="200"
-                />
+                <v-img :src="previewImage" class="uploading-image d-block" max-height="200" />
               </v-responsive>
               <div class="d-flex align-center">
                 <v-text-field
@@ -40,14 +34,7 @@
                 </v-btn>
               </div>
               <v-card-subtitle class="mb-n2">Website / Host</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="host"
-                counter
-                dense
-                rows="1"
-                color="indigo darken-3"
-              ></v-textarea>
+              <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
               <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
               <v-textarea
                 filled
@@ -58,14 +45,7 @@
                 color="indigo darken-3"
               ></v-textarea>
               <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="title"
-                counter
-                dense
-                rows="2"
-                color="indigo darken-3"
-              ></v-textarea>
+              <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
               <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
               <v-textarea
                 filled
@@ -93,9 +73,7 @@
                   rows="2"
                   color="indigo darken-3"
                 ></v-textarea>
-                <v-card-subtitle class="mb-n2"
-                  >OpenGraph Description</v-card-subtitle
-                >
+                <v-card-subtitle class="mb-n2">OpenGraph Description</v-card-subtitle>
                 <v-textarea
                   filled
                   v-model="facebookDescription"
@@ -123,9 +101,7 @@
                   rows="2"
                   color="indigo darken-3"
                 ></v-textarea>
-                <v-card-subtitle class="mb-n2"
-                  >Twitter Description</v-card-subtitle
-                >
+                <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
                 <v-textarea
                   filled
                   v-model="twitterDescription"
@@ -148,10 +124,7 @@
                 <v-card-subtitle class="mt-2 mb-n2">Google</v-card-subtitle>
                 <v-divider class="mt-4"></v-divider>
               </div>
-              <v-card
-                class="px-3 py-2"
-                :flat="this.$vuetify.breakpoint.smAndUp"
-              >
+              <v-card class="px-3 py-2" :flat="this.$vuetify.breakpoint.smAndUp">
                 <p class="host">{{ trimmedHost }}</p>
                 <p class="font-title mt-n4">{{ trimmedTitle }}</p>
                 <p class="font-description mt-n4">{{ trimmedDescription }}</p>
@@ -165,18 +138,10 @@
               </div>
               <v-card max-width="500" flat outlined>
                 <v-responsive aspect-ratio="2:1">
-                  <v-img
-                    :src="twitterImg"
-                    max-width="600"
-                    max-height="300"
-                  ></v-img>
+                  <v-img :src="twitterImg" max-width="600" max-height="300"></v-img>
                 </v-responsive>
-                <h3 class="twitter-title ml-2 mt-1 mr-1">
-                  {{ trimmedTwitterTitle }}
-                </h3>
-                <p class="twitter-description ml-2 mr-1">
-                  {{ trimmedTwitterDescription }}
-                </p>
+                <h3 class="twitter-title ml-2 mt-1 mr-1">{{ trimmedTwitterTitle }}</h3>
+                <p class="twitter-description ml-2 mr-1">{{ trimmedTwitterDescription }}</p>
                 <p class="ml-2 mt-n3 twitter-host mb-2">{{ trimmedHost }}</p>
               </v-card>
               <div class="d-flex align-center mt-3">
@@ -193,9 +158,7 @@
                 <v-divider></v-divider>
                 <div class="grey lighten-3 py-3">
                   <p class="ml-2 facebook-host">{{ trimmedHost }}</p>
-                  <h3 class="facebook-title ml-2 mt-n4 mr-1">
-                    {{ trimmedFbTitle }}
-                  </h3>
+                  <h3 class="facebook-title ml-2 mt-n4 mr-1">{{ trimmedFbTitle }}</h3>
                 </div>
               </v-card>
               <div class="d-flex align-center mt-3">
@@ -255,9 +218,7 @@
           <div class="mt-4">
             <Header class="mt-4">
               <slot slot="subtitle">
-                <h2 class="subtitle mb-4">
-                  check and extract meta tags from any website
-                </h2>
+                <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
               </slot>
               <slot slot="input">
                 <v-card flat class="d-flex align-center justify-center">
@@ -272,37 +233,16 @@
                     placeholder="www.gettymeta.com"
                   ></v-text-field>
                   <v-btn icon class="mt-n5" @click="getMetatags">
-                    <v-icon size="75" color="indigo darken-3  "
-                      >mdi-arrow-right-bold-box</v-icon
-                    >
+                    <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
                   </v-btn>
                 </v-card>
                 <div v-if="error" class="d-flex align-center justify-center">
-                  <v-alert
-                    dense
-                    outlined
-                    transition="scale-transition"
-                    type="error"
-                    >{{ errorText }}</v-alert
-                  >
-                  <v-icon color="error" class="mt-n4 ml-1" @click="closeError"
-                    >mdi-close-box</v-icon
-                  >
+                  <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
+                  <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
                 </div>
                 <div v-if="errorUrl" class="d-flex align-center justify-center">
-                  <v-alert
-                    dense
-                    outlined
-                    transition="scale-transition"
-                    type="error"
-                    >{{ noUrlText }}</v-alert
-                  >
-                  <v-icon
-                    color="error"
-                    class="mt-n4 ml-1"
-                    @click="closeErrorUrl"
-                    >mdi-close-box</v-icon
-                  >
+                  <v-alert dense outlined transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
+                  <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
                 </div>
               </slot>
             </Header>
@@ -315,24 +255,14 @@
         >
           <TextMetadata class="mr-2" />
           <v-divider vertical></v-divider>
-          <titleAndDescription
-            class="ml-2"
-            :class="{ margin: this.$vuetify.breakpoint.mdAndUp }"
-          />
+          <titleAndDescription class="ml-2" :class="{ margin: this.$vuetify.breakpoint.mdAndUp }" />
         </v-container>
       </div>
       <v-card flat height="130">
         <v-divider></v-divider>
-        <v-footer
-          absolute
-          class="font-weight-medium"
-          height="120"
-          color="white"
-        >
+        <v-footer absolute class="font-weight-medium" height="120" color="white">
           <v-col class="text-center" cols="12">
-            <strong class="indigo--text text--darken-3"
-              >gettymeta | {{ new Date().getFullYear() }}</strong
-            >
+            <strong class="indigo--text text--darken-3">gettymeta | {{ new Date().getFullYear() }}</strong>
           </v-col>
         </v-footer>
       </v-card>
@@ -347,9 +277,7 @@
             indeterminate
             color="indigo darken-3"
           ></v-progress-circular>
-          <v-card-title class="indigo--text text--darken-3"
-            >gettymeta</v-card-title
-          >
+          <v-card-title class="indigo--text text--darken-3">gettymeta</v-card-title>
         </v-card>
       </div>
     </div>
@@ -369,17 +297,24 @@ import "prismjs/themes/prism.css";
 export default {
   head() {
     return {
+      htmlAttrs: {
+        lang: "en"
+      },
       title: "Gettymeta - Check and generate website meta tags",
       meta: [
         {
           hid: "description",
           name: "description",
           content:
-            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate meta tags for your website and see how they display on different social network "
+            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate it for your website  "
         },
         {
           name: "twitter:title",
           content: "Gettymeta - Check and generate website meta tags"
+        },
+        {
+          name: "twitter:site",
+          content: "@gettymeta"
         },
         {
           name: "twitter:description",
@@ -438,7 +373,7 @@ export default {
       title: "Gettymeta - check and generate website meta tags",
 
       description:
-        "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags just inserting an URL or even generate meta tags for your website.",
+        "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags or even generate it for your website.",
 
       host: "https://gettymeta.com/",
       pathname: "",
