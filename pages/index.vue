@@ -309,34 +309,35 @@ export default {
             "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate it for your website  "
         },
         {
-          name: "twitter:title",
+          property: "twitter:title",
           content: "Gettymeta - Check and generate website meta tags"
         },
         {
-          name: "twitter:site",
+          property: "twitter:site",
           content: "@gettymeta"
         },
         {
-          name: "twitter:description",
+          property: "twitter:description",
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { name: "twitter:image", content: "/gettymeta_img.png" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:url", content: "https://gettymeta.com/" },
+        { property: "twitter:image", content: "/gettymeta_img.png" },
+        { property: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:url", content: "https://gettymeta.com/" },
+        { property: "og:type", content: "website" },
 
         {
-          name: "og:title",
+          property: "og:title",
           content: "Gettymeta - check and generate website meta tags"
         },
         {
-          name: "og:description",
+          property: "og:description",
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { name: "og:image", content: "/gettymeta_img.png" },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://gettymeta.com/" }
+        { property: "og:image", content: "/gettymeta_img.png" },
+
+        { property: "og:url", content: "https://gettymeta.com/" }
       ]
     };
   },
