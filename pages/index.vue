@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="rendered">
+    <div>
       <NavBar
         class="mb-4"
         v-bind:createMetaPage="createMetaPage"
@@ -266,7 +266,7 @@
         </v-footer>
       </v-card>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <div class="center-screen">
         <v-card flat>
           <v-progress-circular
@@ -279,7 +279,7 @@
           <v-card-title class="indigo--text text--darken-3">gettymeta</v-card-title>
         </v-card>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -367,8 +367,8 @@ export default {
       errorUrl: false,
       error: false,
       loading: false,
-      rendered: false,
-      interval: {},
+      //rendered: false,
+      //interval: {},
 
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
@@ -576,10 +576,10 @@ export default {
       this.show = true;
       setTimeout(() => (this.show = false), 3000);
     }
-  },
-  created() {
-    this.interval = setTimeout(() => (this.rendered = true), 3000);
   }
+  //created() {
+  // this.interval = setTimeout(() => (this.rendered = true), 3000);
+  //}
 };
 </script>
 
