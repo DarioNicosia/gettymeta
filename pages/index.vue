@@ -321,7 +321,10 @@ export default {
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { name: "twitter:image", content: "/gettymeta_img.png" },
+        {
+          name: "twitter:image",
+          content: "https://gettymeta.com/gettymeta.png"
+        },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:url", content: "https://gettymeta.com/" },
         { property: "og:type", content: "website" },
@@ -335,7 +338,10 @@ export default {
           content:
             "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
         },
-        { property: "og:image", content: "/gettymeta_img.png" },
+        {
+          property: "og:image",
+          content: "https://gettymeta.com/gettymeta.png"
+        },
 
         { property: "og:url", content: "https://gettymeta.com/" }
       ]
@@ -371,7 +377,7 @@ export default {
       displayedMeta: false,
       overlay: false,
       url: "",
-      previewImage: "/gettymeta_img.png",
+      previewImage: "/gettymeta.png",
       title: "Gettymeta - check and generate website meta tags",
 
       description:
@@ -380,7 +386,7 @@ export default {
       host: "https://gettymeta.com/",
       pathname: "",
       charset: null,
-      fbImg: "/gettymeta_img.png",
+      fbImg: "/gettymeta.png",
       facebookTitle: "Gettymeta - check and generate website meta tags",
       facebookDescription:
         "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
@@ -389,7 +395,7 @@ export default {
       twitterDescription:
         "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
 
-      twitterImg: "/gettymeta_img.png"
+      twitterImg: "/gettymeta.png"
     };
   },
   computed: {
