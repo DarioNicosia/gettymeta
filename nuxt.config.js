@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["vue-social-sharing/nuxt"],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

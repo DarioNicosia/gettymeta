@@ -236,6 +236,7 @@
                     <v-icon size="75" color="indigo darken-3  ">mdi-arrow-right-bold-box</v-icon>
                   </v-btn>
                 </v-card>
+                <shareLink />
                 <div v-if="error" class="d-flex align-center justify-center">
                   <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
                   <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
@@ -250,9 +251,7 @@
 
           <v-divider class="ml-8 px-3 divider" inset vertical></v-divider>
         </v-container>
-        <v-container
-          class="footer_divider d-flex justify-center flex-column flex-md-row container_articles"
-        >
+        <v-container class="d-flex justify-center flex-column flex-md-row container_articles">
           <TextMetadata class="mr-2" />
           <v-divider vertical></v-divider>
           <titleAndDescription class="ml-2" :class="{ margin: this.$vuetify.breakpoint.mdAndUp }" />
@@ -285,6 +284,7 @@
 </template>
 
 <script>
+import shareLink from "../components/shareLink";
 import titleAndDescription from "../components/titleAndDescription";
 import TextMetadata from "../components/TextMetadata";
 import Prism from "vue-prism-component";
@@ -349,7 +349,8 @@ export default {
     Buttons,
     Prism,
     TextMetadata,
-    titleAndDescription
+    titleAndDescription,
+    shareLink
   },
 
   data() {
