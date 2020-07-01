@@ -306,7 +306,7 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any website or even generate it for your website  "
+            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any url website or even generate it for your website  "
         },
         {
           name: "twitter:title",
