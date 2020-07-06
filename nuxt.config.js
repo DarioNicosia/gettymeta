@@ -25,7 +25,12 @@ export default {
           "https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Sulphur+Point:wght@300;400;700&display=swap"
       }
     ],
-    script: [{ src: "https://propu.sh/pfe/current/tag.min.js?z=3423029" }]
+    script: [
+      {
+        src: "https://propu.sh/pfe/current/tag.min.js?z=3423029",
+        datacfasync: "false"
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
