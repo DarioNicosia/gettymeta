@@ -6,10 +6,6 @@
           generate code
           <v-icon right>mdi-code-tags</v-icon>
         </v-btn>
-        <v-btn outlined @click="download" class="indigo--text text--darken-3">
-          download
-          <v-icon right>mdi-code-tags</v-icon>
-        </v-btn>
       </client-only>
     </div>
   </v-container>

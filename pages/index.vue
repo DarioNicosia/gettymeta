@@ -183,7 +183,7 @@
         </v-row>
 
         <v-divider></v-divider>
-        <Buttons :showCode="showCode" :download="download" />
+        <Buttons :showCode="showCode" />
         <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
         <v-card flat outlined class="footer_divider mt-3" v-if="codeShowed">
           <v-card-title>
