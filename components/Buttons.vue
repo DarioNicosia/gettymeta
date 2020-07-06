@@ -2,13 +2,12 @@
   <v-container>
     <div class="d-flex justify-space-around align-center">
       <client-only>
-        <v-btn
-          light
-          class="indigo darken-3"
-          @click="showCode"
-          color="white--text"
-        >
+        <v-btn light class="indigo darken-3" @click="showCode" color="white--text">
           generate code
+          <v-icon right>mdi-code-tags</v-icon>
+        </v-btn>
+        <v-btn outlined @click="download" class="indigo--text text--darken-3">
+          download
           <v-icon right>mdi-code-tags</v-icon>
         </v-btn>
       </client-only>

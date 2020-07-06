@@ -10,6 +10,7 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "propeller", content: "1d93abc91624fc5ed897984086239750" },
       {
         hid: "description",
         name: "description",
@@ -33,6 +34,7 @@ export default {
    ** Global CSS
    */
   css: [],
+
   /*
    ** Plugins to load before mounting the App
    */

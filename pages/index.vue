@@ -10,7 +10,7 @@
       <v-divider></v-divider>
 
       <v-container v-if="displayedMeta">
-        <v-row justify="center">
+        <v-row justify="center" ref="pdf">
           <v-divider class="ma-4" inset vertical></v-divider>
           <v-col cols="12" sm="4" class="column_metadata">
             <v-card flat>
@@ -183,7 +183,7 @@
         </v-row>
 
         <v-divider></v-divider>
-        <Buttons :showCode="showCode" />
+        <Buttons :showCode="showCode" :download="download" />
         <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
         <v-card flat outlined class="footer_divider mt-3" v-if="codeShowed">
           <v-card-title>
@@ -575,6 +575,9 @@ export default {
     onCopy() {
       this.show = true;
       setTimeout(() => (this.show = false), 3000);
+    },
+    download() {
+      console.log("download");
     }
   }
   //created() {
