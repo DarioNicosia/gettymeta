@@ -10,112 +10,115 @@
       <v-divider></v-divider>
 
       <v-container v-if="displayedMeta">
-        <v-row justify="center" ref="pdf">
+        <v-row justify="center">
           <v-divider class="ma-4" inset vertical></v-divider>
           <v-col cols="12" sm="4" class="column_metadata">
-            <v-card flat>
-              <v-card-title>Meta Tags</v-card-title>
-              <v-card-subtitle class="mt-5 mb-n2">Social image url</v-card-subtitle>
-              <v-responsive>
-                <v-img :src="previewImage" class="uploading-image d-block" max-height="200" />
-              </v-responsive>
-              <div class="d-flex align-center">
-                <v-text-field
-                  @change="insertUrlImage"
-                  dense
-                  filled
-                  color="indigo darken-3"
-                  class="mt-3"
-                  v-model="previewImage"
-                  clear-icon
-                ></v-text-field>
-                <v-btn icon class="mt-n2" @click="clearImageUrl">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </div>
-              <v-card-subtitle class="mb-n2">Website / Host</v-card-subtitle>
-              <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
-              <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="urlFullPath"
-                counter
-                dense
-                rows="1"
-                color="indigo darken-3"
-              ></v-textarea>
-              <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
-              <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
-              <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
-              <v-textarea
-                filled
-                v-model="description"
-                counter
-                dense
-                rows="5"
-                color="indigo darken-3"
-              ></v-textarea>
-              <v-divider class="mt-3"></v-divider>
-              <v-card flat>
-                <div class="d-flex align-center justify-start">
-                  <v-avatar width="30" height="30">
-                    <img src="/opengraph_logo.png" alt="open graph logo" />
-                  </v-avatar>
-                  <v-card-title class="ml-n3">OpenGraph</v-card-title>
+            <div>
+              <v-card flat max-width="530">
+                <v-card-title ref="pdfDom">Meta Tags</v-card-title>
+                <v-card-subtitle class="mt-5 mb-n2">Social image url</v-card-subtitle>
+                <v-responsive>
+                  <v-img :src="previewImage" class="uploading-image d-block" max-height="200" />
+                </v-responsive>
+                <div class="d-flex align-center">
+                  <v-text-field
+                    @change="insertUrlImage"
+                    dense
+                    filled
+                    color="indigo darken-3"
+                    class="mt-3"
+                    v-model="previewImage"
+                    clear-icon
+                  ></v-text-field>
+                  <v-btn icon class="mt-n2" @click="clearImageUrl">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
                 </div>
-
-                <v-card-subtitle class="mb-n2">OpenGraph Title</v-card-subtitle>
+                <v-card-subtitle class="mb-n2">Website / Host</v-card-subtitle>
+                <v-textarea filled v-model="host" counter dense rows="1" color="indigo darken-3"></v-textarea>
+                <v-card-subtitle class="mb-n2">Url Full Path</v-card-subtitle>
                 <v-textarea
                   filled
-                  v-model="facebookTitle"
+                  v-model="urlFullPath"
                   counter
                   dense
-                  rows="2"
+                  rows="1"
                   color="indigo darken-3"
                 ></v-textarea>
-                <v-card-subtitle class="mb-n2">OpenGraph Description</v-card-subtitle>
+                <v-card-subtitle class="mb-n2">Title</v-card-subtitle>
+                <v-textarea filled v-model="title" counter dense rows="2" color="indigo darken-3"></v-textarea>
+                <v-card-subtitle class="mb-n2">Description</v-card-subtitle>
                 <v-textarea
                   filled
-                  v-model="facebookDescription"
+                  v-model="description"
                   counter
                   dense
                   rows="5"
                   color="indigo darken-3"
                 ></v-textarea>
-              </v-card>
-              <v-divider class="mt-3"></v-divider>
-              <v-card flat>
-                <div class="d-flex align-center justify-start">
-                  <v-avatar width="30" height="30">
-                    <img src="/iconfinder_Twitter.png" alt="twitter logo" />
-                  </v-avatar>
-                  <v-card-title class="ml-n3">Twitter</v-card-title>
-                </div>
+                <v-divider class="mt-3"></v-divider>
+                <v-card flat>
+                  <div class="d-flex align-center justify-start">
+                    <v-avatar width="30" height="30">
+                      <img src="/opengraph_logo.png" alt="open graph logo" />
+                    </v-avatar>
+                    <v-card-title class="ml-n3">OpenGraph</v-card-title>
+                  </div>
 
-                <v-card-subtitle class="mb-n2">Twitter Title</v-card-subtitle>
-                <v-textarea
-                  filled
-                  v-model="twitterTitle"
-                  counter
-                  dense
-                  rows="2"
-                  color="indigo darken-3"
-                ></v-textarea>
-                <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
-                <v-textarea
-                  filled
-                  v-model="twitterDescription"
-                  counter
-                  dense
-                  rows="5"
-                  color="indigo darken-3"
-                ></v-textarea>
+                  <v-card-subtitle class="mb-n2">OpenGraph Title</v-card-subtitle>
+                  <v-textarea
+                    filled
+                    v-model="facebookTitle"
+                    counter
+                    dense
+                    rows="2"
+                    color="indigo darken-3"
+                  ></v-textarea>
+                  <v-card-subtitle class="mb-n2">OpenGraph Description</v-card-subtitle>
+                  <v-textarea
+                    filled
+                    v-model="facebookDescription"
+                    counter
+                    dense
+                    rows="5"
+                    color="indigo darken-3"
+                  ></v-textarea>
+                </v-card>
+                <v-divider class="mt-3"></v-divider>
+                <v-card flat>
+                  <div class="d-flex align-center justify-start">
+                    <v-avatar width="30" height="30">
+                      <img src="/iconfinder_Twitter.png" alt="twitter logo" />
+                    </v-avatar>
+                    <v-card-title class="ml-n3">Twitter</v-card-title>
+                  </div>
+
+                  <v-card-subtitle class="mb-n2">Twitter Title</v-card-subtitle>
+                  <v-textarea
+                    filled
+                    v-model="twitterTitle"
+                    counter
+                    dense
+                    rows="2"
+                    color="indigo darken-3"
+                  ></v-textarea>
+                  <v-card-subtitle class="mb-n2">Twitter Description</v-card-subtitle>
+                  <v-textarea
+                    filled
+                    v-model="twitterDescription"
+                    counter
+                    dense
+                    rows="5"
+                    color="indigo darken-3"
+                  ></v-textarea>
+                </v-card>
               </v-card>
-            </v-card>
+            </div>
           </v-col>
+
           <v-divider class="ma-4" inset vertical></v-divider>
           <v-col cols="12" sm="6" class="column_preview">
-            <v-card flat>
+            <v-card flat max-width="530">
               <v-card-title>Preview</v-card-title>
               <div class="d-flex align-center">
                 <v-avatar class="mb-n3 mr-n4" width="20" height="20">
@@ -184,6 +187,7 @@
 
         <v-divider></v-divider>
         <Buttons :showCode="showCode" />
+
         <v-divider :class="{ footer_divider: !codeShowed }"></v-divider>
         <v-card flat outlined class="footer_divider mt-3" v-if="codeShowed">
           <v-card-title>
@@ -369,7 +373,7 @@ export default {
       loading: false,
       //rendered: false,
       //interval: {},
-
+      htmlTitle: "resume",
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode: "Your generated code",
@@ -575,11 +579,9 @@ export default {
     onCopy() {
       this.show = true;
       setTimeout(() => (this.show = false), 3000);
-    },
-    download() {
-      console.log("download");
     }
   }
+
   //created() {
   // this.interval = setTimeout(() => (this.rendered = true), 3000);
   //}

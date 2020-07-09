@@ -10,7 +10,7 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "propeller", content: "1d93abc91624fc5ed897984086239750" },
+
       {
         hid: "description",
         name: "description",
@@ -23,12 +23,6 @@ export default {
         rel: "stylesheet",
         href:
           "https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Sulphur+Point:wght@300;400;700&display=swap"
-      }
-    ],
-    script: [
-      {
-        src: "https://propu.sh/pfe/current/tag.min.js?z=3423029",
-        datacfasync: "false"
       }
     ]
   },
@@ -69,18 +63,7 @@ export default {
     customVariables: ["~/assets/variables.scss"],
     treeShake: true,
     theme: {
-      light: true,
-      themes: {
-        light: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
+      light: true
     }
   },
   /*
