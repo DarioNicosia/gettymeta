@@ -54,7 +54,15 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["vue-social-sharing/nuxt"],
+  modules: [
+    "vue-social-sharing/nuxt",
+    [
+      "@nuxtjs/google-adsense",
+      {
+        id: "ca-pub-3710936554860165"
+      }
+    ]
+  ],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
