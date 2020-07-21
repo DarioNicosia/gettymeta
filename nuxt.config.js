@@ -10,6 +10,7 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "propeller", content: "1d93abc91624fc5ed897984086239750" },
 
       {
         hid: "description",
@@ -54,15 +55,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    "vue-social-sharing/nuxt",
-    [
-      "@nuxtjs/google-adsense",
-      {
-        id: "ca-pub-3710936554860165"
-      }
-    ]
-  ],
+  modules: ["vue-social-sharing/nuxt"],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
