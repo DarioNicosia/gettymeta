@@ -1,61 +1,55 @@
 <template>
-  <div>
-    <v-app-bar flat color="white" class="nav-animation">
-      <client-only>
-        <v-spacer v-if="this.$vuetify.breakpoint.smAndUp"></v-spacer>
-      </client-only>
+  <div class="nav-animation">
+    <v-app-bar flat color="white" class="mb-3">
       <div class="d-flex align-center justify-center mt-3">
-        <v-img
-          src="/logo_gettymeta.png"
-          width="70"
-          @click="getLandingPage"
-          height="70"
-          class="mt-1 logo"
-          contain
-        ></v-img>
-        <client-only>
-          <v-divider v-if="this.$vuetify.breakpoint.smAndUp" class="ma-4" inset vertical></v-divider>
-        </client-only>
-        <h1 v-if="displayedMeta" class="align-center title">tags generator</h1>
-        <h3 v-else class="align-center title">tags checker</h3>
-      </div>
-      <client-only>
-        <v-spacer v-if="this.$vuetify.breakpoint.smAndUp"></v-spacer>
-      </client-only>
-      <v-spacer></v-spacer>
+        <nuxt-link to="/">
+          <v-img
+            src="/logo_gettymeta1.jpg"
+            width="50"
+            height="50"
+            class="mt-1 logo"
+            contain
+            @click="showCheckPage"
+          ></v-img>
+        </nuxt-link>
 
+        <v-divider class="ml-3 mr-4 my-4" inset vertical></v-divider>
+
+        <h3 class="align-center title">Gettymeta</h3>
+      </div>
+
+      <v-spacer></v-spacer>
+      <!--
       <v-btn
+        v-if="this.$route.name !== 'generate'"
         color="indigo darken-3"
-        @click="createMetaPage"
-        v-if="displayedMeta ===false"
+        to="/generate"
         outlined
-        :x-small="this.$vuetify.breakpoint.smAndDown"
+        small
         class="mt-3"
+        >generate meta tags</v-btn
       >
-        <v-icon left small>mdi-code-tags</v-icon>generate
-      </v-btn>
       <v-btn
+        v-if="this.$route.name !== 'index'"
         color="indigo darken-3"
-        @click="getLandingPage"
-        v-if="displayedMeta"
+        to="/"
         outlined
+        small
         class="mt-3"
-        :x-small="this.$vuetify.breakpoint.smAndDown"
-      >
-        <v-icon left small>mdi-arrow-left</v-icon>back
-      </v-btn>
-      <client-only>
-        <v-divider class="ma-4" v-if="this.$vuetify.breakpoint.smAndUp" inset vertical></v-divider>
-      </client-only>
-      <client-only>
-        <v-spacer v-if="this.$vuetify.breakpoint.smAndUp"></v-spacer>
-      </client-only>
+        >check meta tags</v-btn
+      >-->
+      <Dropdown class="mr-1" />
     </v-app-bar>
+    <v-divider></v-divider>
   </div>
 </template>
 
 <script>
+import Dropdown from "../components/Dropdown";
 export default {
+  components: {
+    Dropdown
+  },
   name: "NavBar",
   props: {
     createMetaPage: {
@@ -66,6 +60,11 @@ export default {
     },
     getLandingPage: {
       type: Function
+    }
+  },
+  methods: {
+    showCheckPage() {
+      this.$store.commit("SET_DISPLAYMETA", false);
     }
   }
 };

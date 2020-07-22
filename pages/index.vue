@@ -1,14 +1,7 @@
 <template>
   <div>
     <div>
-      <NavBar
-        class="mb-4"
-        v-bind:createMetaPage="createMetaPage"
-        :displayedMeta="displayedMeta"
-        :getLandingPage="getLandingPage"
-      />
-      <v-divider></v-divider>
-
+      <!-- displayed meta -->
       <v-container v-if="displayedMeta">
         <v-row justify="center">
           <v-divider class="ma-4" inset vertical></v-divider>
@@ -215,14 +208,28 @@
           </v-tooltip>
         </v-card>
       </v-container>
+      <!-- end displayed meta -->
       <div v-else>
         <v-container class="d-flex justify-center align-center">
           <v-divider class="mr-8 px-3 divider" inset vertical></v-divider>
 
           <div class="mt-4">
+            <div v-if="error" class="d-flex align-center justify-center">
+              <v-alert dense transition="scale-transition" type="error">{{ errorText }}</v-alert>
+              <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
+            </div>
+            <div v-if="errorUrl" class="d-flex align-center justify-center">
+              <v-alert dense transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
+              <v-icon
+                color="error"
+                size="50"
+                class="mt-n4 ml-1"
+                @click="closeErrorUrl"
+              >mdi-close-box</v-icon>
+            </div>
             <Header class="mt-4">
               <slot slot="subtitle">
-                <h2 class="subtitle mb-4">check and extract meta tags from any website</h2>
+                <h1 class="subtitle mb-4 text-sm-h5 text-h5">check and generate website meta tags</h1>
               </slot>
               <slot slot="input">
                 <v-card flat class="d-flex align-center justify-center">
@@ -241,14 +248,6 @@
                   </v-btn>
                 </v-card>
                 <shareLink />
-                <div v-if="error" class="d-flex align-center justify-center">
-                  <v-alert dense outlined transition="scale-transition" type="error">{{ errorText }}</v-alert>
-                  <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
-                </div>
-                <div v-if="errorUrl" class="d-flex align-center justify-center">
-                  <v-alert dense outlined transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
-                  <v-icon color="error" class="mt-n4 ml-1" @click="closeErrorUrl">mdi-close-box</v-icon>
-                </div>
               </slot>
             </Header>
           </div>
@@ -293,7 +292,7 @@ import titleAndDescription from "../components/titleAndDescription";
 import TextMetadata from "../components/TextMetadata";
 import Prism from "vue-prism-component";
 import Buttons from "../components/Buttons";
-import DisplayMeta from "../components/DisplayMeta";
+
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import "prismjs";
@@ -355,7 +354,7 @@ export default {
   components: {
     NavBar,
     Header,
-    DisplayMeta,
+
     Buttons,
     Prism,
     TextMetadata,
@@ -373,13 +372,11 @@ export default {
       loading: false,
       //rendered: false,
       //interval: {},
-      htmlTitle: "resume",
+
       errorText: "An error occurred! Please refresh the page and try again",
       noUrlText: "An error occurred! Please insert a valid url",
       instructionCode: "Your generated code",
 
-      displayedMeta: false,
-      overlay: false,
       url: "",
       previewImage: "/gettymeta.png",
       title: "Gettymeta - check and generate website meta tags",
@@ -403,6 +400,9 @@ export default {
     };
   },
   computed: {
+    displayedMeta() {
+      return this.$store.state.displayedMeta;
+    },
     trimmedTitle() {
       let length = 65;
       return this.title.length > length
@@ -500,7 +500,12 @@ export default {
               } else {
                 this.description = response.description;
               }
-              this.host = response.host;
+              if (!response.host) {
+                this.host = " ";
+              } else {
+                this.host = response.host;
+              }
+
               if (!response.pathname) {
                 this.pathname = " ";
               } else {
@@ -508,6 +513,7 @@ export default {
               }
               if (!response.ogImage) {
                 this.fbImg = "";
+                this.previewImage = "";
               } else {
                 this.fbImg = response.ogImage;
                 this.previewImage = response.ogImage;
@@ -538,7 +544,7 @@ export default {
               } else {
                 this.twitterImg = response.twitterImage;
               }
-              this.displayedMeta = true;
+              this.$store.commit("SET_DISPLAYMETA", true);
               this.url = " ";
               this.loading = false;
             }
@@ -591,9 +597,15 @@ export default {
 <style scoped>
 .subtitle {
   letter-spacing: 0px !important;
-  word-spacing: -1px !important;
+  word-spacing: -2px !important;
 }
 
+@media screen and (max-width: 375px) {
+  .subtitle {
+    word-spacing: -5px !important;
+    font-size: 0.3em;
+  }
+}
 .input-file {
   display: none;
 }

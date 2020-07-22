@@ -1,8 +1,6 @@
 <template>
   <div max-width="700" flat class="px-2 header-card">
-    <h1 class="text-h3 text-sm-h1 mt-5 mb-2 header indigo--text text--darken-3">
-      gettymeta
-    </h1>
+    <h2 class="text-h3 text-sm-h1 mt-5 mb-2 header indigo--text text--darken-3">gettymeta</h2>
 
     <slot name="subtitle"></slot>
     <slot name="input"></slot>
@@ -16,13 +14,9 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  letter-spacing: 10px !important;
-}
-
 @media screen and (max-width: 375px) {
   .header {
-    letter-spacing: 6px !important;
+    letter-spacing: 0px !important;
   }
 }
 
