@@ -216,7 +216,7 @@
           <div class="mt-4">
             <div v-if="error" class="d-flex align-center justify-center">
               <v-alert dense transition="scale-transition" type="error">{{ errorText }}</v-alert>
-              <v-icon color="error" class="mt-n4 ml-1" @click="closeError">mdi-close-box</v-icon>
+              <v-icon color="error" class="mt-n4 ml-1" size="50" @click="closeError">mdi-close-box</v-icon>
             </div>
             <div v-if="errorUrl" class="d-flex align-center justify-center">
               <v-alert dense transition="scale-transition" type="error">{{ noUrlText }}</v-alert>
@@ -301,7 +301,7 @@ export default {
   head() {
     return {
       htmlAttrs: {
-        lang: "en"
+        lang: "en",
       },
       title: "Gettymeta - Check and generate website meta tags",
       meta: [
@@ -309,24 +309,24 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any url website or even generate it for your website  "
+            "Gettymeta is a free meta tags checker and generator. You can get html, twitter and facebook meta tags from any url website or even generate it for your website  ",
         },
         {
           name: "twitter:title",
-          content: "Gettymeta - Check and generate website meta tags"
+          content: "Gettymeta - Check and generate website meta tags",
         },
         {
           name: "twitter:site",
-          content: "@gettymeta"
+          content: "@gettymeta",
         },
         {
           name: "twitter:description",
           content:
-            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
+            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network",
         },
         {
           name: "twitter:image",
-          content: "https://gettymeta.com/gettymeta.png"
+          content: "https://gettymeta.com/gettymeta.png",
         },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:url", content: "https://gettymeta.com/" },
@@ -334,20 +334,20 @@ export default {
 
         {
           property: "og:title",
-          content: "Gettymeta - check and generate website meta tags"
+          content: "Gettymeta - check and generate website meta tags",
         },
         {
           property: "og:description",
           content:
-            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network"
+            "With Gettymeta you can easily check and get meta tags from any website. You can even generate for your website and see a preview of how they display on different social network",
         },
         {
           property: "og:image",
-          content: "https://gettymeta.com/gettymeta.png"
+          content: "https://gettymeta.com/gettymeta.png",
         },
 
-        { property: "og:url", content: "https://gettymeta.com/" }
-      ]
+        { property: "og:url", content: "https://gettymeta.com/" },
+      ],
     };
   },
 
@@ -359,7 +359,7 @@ export default {
     Prism,
     TextMetadata,
     titleAndDescription,
-    shareLink
+    shareLink,
   },
 
   data() {
@@ -396,7 +396,7 @@ export default {
       twitterDescription:
         "With Gettymeta you can easily check and get meta tags from any website. You can even generate your own meta tags for your website and see a preview of how they display on different social network",
 
-      twitterImg: "/gettymeta.png"
+      twitterImg: "/gettymeta.png",
     };
   },
   computed: {
@@ -462,7 +462,7 @@ export default {
         `<meta name="twitter:card" content="summary_large_image">\n` +
         `<meta name="twitter:url" content="${this.urlFullPath}">\n`
       );
-    }
+    },
   },
   methods: {
     getMetatags() {
@@ -478,17 +478,19 @@ export default {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  url: this.url
-                })
+                  url: this.url,
+                }),
               }
             );
             return response.json();
           };
-          request().then(response => {
+          request().then((response) => {
             if (response.code) {
               this.errorUrl = true;
+              this.loading = false;
             } else if (response.statusCode) {
               this.error = true;
+              this.loading = false;
             } else {
               if (!response.title) {
                 this.title = " ";
@@ -585,8 +587,8 @@ export default {
     onCopy() {
       this.show = true;
       setTimeout(() => (this.show = false), 3000);
-    }
-  }
+    },
+  },
 
   //created() {
   // this.interval = setTimeout(() => (this.rendered = true), 3000);

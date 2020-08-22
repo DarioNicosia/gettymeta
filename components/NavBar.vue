@@ -5,8 +5,8 @@
         <nuxt-link to="/">
           <v-img
             src="/logo_gettymeta1.jpg"
-            width="50"
-            height="50"
+            width="40"
+            height="40"
             class="mt-1 logo"
             contain
             @click="showCheckPage"
@@ -48,25 +48,25 @@
 import Dropdown from "../components/Dropdown";
 export default {
   components: {
-    Dropdown
+    Dropdown,
   },
   name: "NavBar",
   props: {
     createMetaPage: {
-      type: Function
+      type: Function,
     },
     displayedMeta: {
-      type: Boolean
+      type: Boolean,
     },
     getLandingPage: {
-      type: Function
-    }
+      type: Function,
+    },
   },
   methods: {
     showCheckPage() {
       this.$store.commit("SET_DISPLAYMETA", false);
-    }
-  }
+    },
+  },
 };
 </script>
 
