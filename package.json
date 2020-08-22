@@ -16,7 +16,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "nuxt": "^2.4.0",
-    "prismjs": "^1.20.0",
+    "prismjs": "^1.21.0",
     "simple-exiftool": "^1.1.0",
     "v-tooltip": "^2.0.3",
     "vue-clickaway": "^2.2.2",
