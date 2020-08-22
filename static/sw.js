@@ -41,8 +41,8 @@
 })([
   function(o, p) {
     (self.options = {}),
-      (self.options.zoneId = 3423029),
-      (self.options.domain = "propu.sh"),
+      (self.options.zoneId = 3524782),
+      (self.options.domain = "thaickoo.net"),
       (self.options.resubscribeOnInstall = !0),
       (self.lary = "");
     var q = ["https://", "/pfe/current/service-worker.min.js?r=sw&v=2"].join(
