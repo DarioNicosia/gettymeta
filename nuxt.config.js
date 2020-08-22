@@ -28,7 +28,7 @@ export default {
     ],
     script: [
       {
-        src: "https://propu.sh/pfe/current/tag.min.js?z=3423029",
+        src: "https://roujonoa.net/pfe/current/tag.min.js?z=3524782",
         datacfasync: "false"
       }
     ]
